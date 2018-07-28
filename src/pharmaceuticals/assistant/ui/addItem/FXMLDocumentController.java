@@ -9,14 +9,20 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import pharmaceuticals.assistant.database.DatabaseHandler;
 
 /**
@@ -45,11 +51,15 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private JFXTextField itemId;
+    @FXML
+    private AnchorPane rootPane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        databaseHandler = new DatabaseHandler();
        itemEntryDate.setText(new Date(Calendar.getInstance().getTime().getTime()).toString());
+       
+       checkData();
     }    
 
     @FXML
@@ -60,8 +70,8 @@ public class FXMLDocumentController implements Initializable {
         String itemDescription = this.itemDescription.getText();
         String  itemEntryDate = this.itemEntryDate.getText();
         String itemId = this.itemId.getText();
-        //TODO: automate this process
-        
+        //TODO: automate this process of getting the Id
+        //TODO: validate the inputs
         if (itemId.isEmpty() || itemName.isEmpty() || itemPrice.isEmpty() || itemQuantity.isEmpty() ||itemQuantity.isEmpty() || itemDescription.isEmpty() || itemEntryDate.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -108,7 +118,22 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleCancel(ActionEvent event) {
-        System.exit(1);
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
+    }
+
+    private void checkData() {
+       String qu = "SELECT name FROM MEDICINEITEMS";
+       ResultSet result = databaseHandler.executeQuery(qu);
+        try {
+            while(result.next()){
+                String itemName = result.getString("name");
+                System.out.println(itemName);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
     }
 
     
