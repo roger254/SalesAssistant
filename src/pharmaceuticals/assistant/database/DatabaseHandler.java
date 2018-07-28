@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,7 +38,7 @@ public final class DatabaseHandler {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
             conn = DriverManager.getConnection(DB_URL);
         } catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
@@ -52,7 +53,7 @@ public final class DatabaseHandler {
                 System.out.println("Table" + TABLE_NAME + "already exists. Ready for go!");
             }else {
                 stmt.execute("CREATE TABLE " + TABLE_NAME + "("
-                + " id varchar(200) primary key,\n"
+                + " id varchar(200) primary key ,\n"
                 + " name varchar(200),\n"
                 + " description varchar(254),\n"
                 + " entryDate DATE,\n"
@@ -62,9 +63,34 @@ public final class DatabaseHandler {
                 + ")");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
+           System.err.println(ex.getMessage() + " --- setup Database");
         }finally{
             
+        }
+    }
+    
+    //execute Query and execAction
+    public ResultSet executeQuery(String query){
+        ResultSet result;
+        try{
+            stmt = conn.createStatement();
+            result = stmt.executeQuery(query);
+        } catch (SQLException ex) {
+            System.out.println("Exception at execQuery:dataHandler" + ex.getLocalizedMessage());
+            return null;
+        }
+        return result;
+    }
+    
+    public boolean execAction(String qu){
+        try{
+            stmt = conn.createStatement();
+            stmt.execute(qu);
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error:" + ex.getMessage(), "Error Occured",JOptionPane.ERROR_MESSAGE);
+            System.out.println("Exception at execAction:dataHandler" + ex.getLocalizedMessage());
+            return false;
         }
     }
 }
