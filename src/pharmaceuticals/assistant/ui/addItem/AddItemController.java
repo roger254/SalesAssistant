@@ -29,7 +29,7 @@ import pharmaceuticals.assistant.database.DatabaseHandler;
  *
  * @author roger
  */
-public class FXMLDocumentController implements Initializable {
+public class AddItemController implements Initializable {
     
     private Label label;
     
@@ -131,7 +131,7 @@ public class FXMLDocumentController implements Initializable {
                 System.out.println(itemName);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddItemController.class.getName()).log(Level.SEVERE, null, ex);
         }
            
     }

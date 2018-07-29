@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmaceuticals.assistant.ui.addItem.FXMLDocumentController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="424.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmaceuticals.assistant.ui.addItem.AddItemController">
    <children>
       <VBox prefHeight="302.0" prefWidth="424.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -43,11 +43,11 @@
             </JFXTextField>
             <HBox prefHeight="57.0" prefWidth="548.0">
                <children>
-                  <JFXButton fx:id="saveButton" onAction="#handleSave" prefHeight="60.0" prefWidth="250.0" stylesheets="@addItem.css" text="Save">
+                  <JFXButton fx:id="saveButton" onAction="#handleSave" prefHeight="60.0" prefWidth="250.0" stylesheets="@AddItem.css" text="Save">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin></JFXButton>
-                  <JFXButton fx:id="cancelButton" onAction="#handleCancel" prefHeight="60.0" prefWidth="250.0" stylesheets="@addItem.css" text="Cancel">
+                  <JFXButton fx:id="cancelButton" onAction="#handleCancel" prefHeight="60.0" prefWidth="250.0" stylesheets="@AddItem.css" text="Cancel">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin></JFXButton>
