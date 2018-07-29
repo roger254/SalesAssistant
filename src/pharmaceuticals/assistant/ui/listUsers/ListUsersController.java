@@ -62,7 +62,7 @@ public class ListUsersController implements Initializable {
     }
 
     private void loadData() {
-        DatabaseHandler handler = new DatabaseHandler();
+        DatabaseHandler handler = DatabaseHandler.getInstance();
         
           String qu = "SELECT * FROM USERTABLE";
           ResultSet result = handler.executeQuery(qu);

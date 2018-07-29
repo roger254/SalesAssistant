@@ -16,18 +16,23 @@ import javax.swing.JOptionPane;
  */
 public final class DatabaseHandler {
     
-    private static DatabaseHandler handler;
+    private static DatabaseHandler handler = null;
     
     private static final String DB_URL = "jdbc:derby:database;create=true";
     private static Connection conn = null;
     private static Statement stmt = null;
 
-    public DatabaseHandler() {
+    private DatabaseHandler() {
         createConnection();
         setupMedicineItemTable();
         setupUserTable();
     }
     
+    public static DatabaseHandler getInstance(){
+        if (handler == null)
+            handler = new DatabaseHandler();
+        return handler;
+    }
     
    //create connection to database
     void createConnection(){

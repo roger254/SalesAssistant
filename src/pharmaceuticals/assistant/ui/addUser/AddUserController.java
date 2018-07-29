@@ -48,7 +48,7 @@ public class AddUserController implements Initializable {
         userAccess.getItems().add("ADMIN");
         userAccess.getItems().add("Regular User");
         
-        handler = new DatabaseHandler();
+        handler = DatabaseHandler.getInstance();
    }    
 
     @FXML

@@ -61,7 +61,7 @@ public class AddItemController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       databaseHandler = new DatabaseHandler();
+       databaseHandler = DatabaseHandler.getInstance();
        itemEntryDate.setText(new Date(Calendar.getInstance().getTime().getTime()).toString());
        
        checkData();
