@@ -84,17 +84,7 @@ public class AddItemController implements Initializable {
             alert.showAndWait();
             return;
         }
-        /*
-         stmt.execute("CREATE TABLE " + TABLE_NAME + "("
-                + " id varchar(200) primary key,\n"
-                + " name varchar(200),\n"
-                + " description varchar(254),\n"
-                + " entryDate DATE,\n"
-                + " price double precision,\n"
-                + " quantity integer,\n"
-                + " isAvailable boolean default true"
-                + ")");
-        */
+     
         String qu = "INSERT INTO MEDICINEITEMS VALUES("
                 + "'" + itemId + "',"
                 + "'" + itemName + "',"

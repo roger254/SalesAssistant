@@ -75,26 +75,6 @@ public class AddUserController implements Initializable {
             return;
         }
         
-        /*
-          stmt.execute("CREATE TABLE " + TABLE_NAME + "("
-                + " userId varchar(200) primary key ,\n"
-                + " name varchar(200),\n"
-                + " password varchar(254),\n"
-                + " userAccess varchar (254)"
-                + ")");
-        */
-        /*
-          String qu = "INSERT INTO MEDICINEITEMS VALUES("
-                + "'" + itemId + "',"
-                + "'" + itemName + "',"
-                + "'" + itemDescription + "',"
-                + "'" + itemEntryDate + "',"
-                + "" + Double.parseDouble(itemPrice) + ","
-                + "" + Integer.parseInt(itemQuantity) + ","
-                + "" + "true" + ""
-                + ")";
-        */
-        
         String stmt = "INSERT INTO USERTABLE VALUES("
                 + "'" + userID + "',"
                 + "'" + userName + "',"
