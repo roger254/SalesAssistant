@@ -6,6 +6,7 @@
 package pharmaceuticals.assistant.ui.addItem;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Date;
@@ -34,25 +35,29 @@ public class AddItemController implements Initializable {
     private Label label;
     
     DatabaseHandler databaseHandler;
-    @FXML
     private JFXTextField itemName;
-    @FXML
     private JFXTextField itemPrice;
-    @FXML
     private JFXTextField itemQuantity;
-    @FXML
     private JFXTextField itemDescription;
-    @FXML
     private JFXTextField itemEntryDate;
     @FXML
     private JFXButton saveButton;
     @FXML
     private JFXButton cancelButton;
     
-    @FXML
     private JFXTextField itemId;
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private JFXTextField userName;
+    @FXML
+    private JFXTextField userPassword;
+    @FXML
+    private JFXTextField confirmPassword;
+    @FXML
+    private JFXTextField userID;
+    @FXML
+    private JFXComboBox<?> userAccess;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
