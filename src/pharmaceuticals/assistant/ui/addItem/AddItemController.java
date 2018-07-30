@@ -32,38 +32,33 @@ import pharmaceuticals.assistant.database.DatabaseHandler;
  */
 public class AddItemController implements Initializable {
     
-    private Label label;
-    
     DatabaseHandler databaseHandler;
+    @FXML
     private JFXTextField itemName;
+    @FXML
     private JFXTextField itemPrice;
-    private JFXTextField itemQuantity;
+    @FXML
+    private JFXTextField itemQuantity; 
+    @FXML
     private JFXTextField itemDescription;
+    @FXML
     private JFXTextField itemEntryDate;
     @FXML
     private JFXButton saveButton;
     @FXML
     private JFXButton cancelButton;
     
+    @FXML
     private JFXTextField itemId;
     @FXML
     private AnchorPane rootPane;
-    @FXML
-    private JFXTextField userName;
-    @FXML
-    private JFXTextField userPassword;
-    @FXML
-    private JFXTextField confirmPassword;
-    @FXML
-    private JFXTextField userID;
-    @FXML
-    private JFXComboBox<?> userAccess;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        databaseHandler = DatabaseHandler.getInstance();
-      // Date today = new Date(Calendar.getInstance().getTime().getTime());
-     //  itemEntryDate.setText("");
+       Date today = new Date(Calendar.getInstance().getTime().getTime());
+       itemEntryDate.setText(today.toString());
+       itemId.setText(String.valueOf(getNextID()));
        
        checkData();
     }    
@@ -74,7 +69,7 @@ public class AddItemController implements Initializable {
         String itemPrice = this.itemPrice.getText();
         String itemQuantity = this.itemQuantity.getText();
         String itemDescription = this.itemDescription.getText();
-        String  itemEntryDate = this.itemEntryDate.getText();
+        String itemEntryDate = this.itemEntryDate.getText();
         String itemId = this.itemId.getText();
         //TODO: automate this process of getting the Id
         //TODO: validate the inputs
@@ -129,7 +124,22 @@ public class AddItemController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(AddItemController.class.getName()).log(Level.SEVERE, null, ex);
         }
-           
+    }
+    
+    private int getNextID(){
+        String qu = "SELECT id from MEDICINEITEMS";
+        ResultSet result = databaseHandler.executeQuery(qu);
+        int id = 0;
+        try{
+            while(result.next()){
+                id = Integer.parseInt(result.getString("id"));
+                System.out.println(id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddItemController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return ++id;
     }
 
     

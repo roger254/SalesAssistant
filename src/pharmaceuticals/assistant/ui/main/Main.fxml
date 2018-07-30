@@ -86,49 +86,68 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <VBox prefHeight="483.0" prefWidth="564.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox prefHeight="483.0" prefWidth="564.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <HBox alignment="CENTER" prefHeight="163.0" prefWidth="564.0">
+                                    <HBox fx:id="medicineInfo" alignment="CENTER" prefHeight="163.0" prefWidth="564.0" style="-fx-background-color: lightgrey;">
                                        <children>
-                                          <JFXTextField />
-                                          <VBox alignment="CENTER" prefHeight="163.0" prefWidth="330.0">
+                                          <FontAwesomeIconView fill="#2dcc14" glyphName="SEARCH_PLUS" size="30">
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="30.0" />
+                                             </HBox.margin>
+                                          </FontAwesomeIconView>
+                                          <JFXTextField fx:id="medicineNameInput" alignment="CENTER" focusColor="#2dcc14" labelFloat="true" onAction="#loadMedicineInfo" prefHeight="28.0" prefWidth="194.0" promptText="Enter Medicine Name">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin></JFXTextField>
+                                          <VBox alignment="CENTER" prefHeight="140.0" prefWidth="269.0">
                                              <HBox.margin>
                                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                              </HBox.margin>
                                              <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Name" textAlignment="CENTER" wrappingWidth="330.01399993896484">
+                                                <Text fx:id="medicineNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Name" textAlignment="CENTER" wrappingWidth="330.01399993896484">
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
                                                    </VBox.margin></Text>
-                                                <Text layoutX="10.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Price" textAlignment="CENTER" wrappingWidth="330.01399993896484">
+                                                <Text fx:id="medicinePriceText" layoutX="10.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Price" textAlignment="CENTER" wrappingWidth="330.01399993896484">
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
                                                    </VBox.margin></Text>
-                                                <Text layoutX="10.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Quantity" textAlignment="CENTER" wrappingWidth="330.01399993896484">
+                                                <Text fx:id="medicineQuantityText" layoutX="10.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Quantity" textAlignment="CENTER" wrappingWidth="330.01399993896484">
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
                                                    </VBox.margin></Text>
-                                                <Text layoutX="10.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Description" textAlignment="CENTER" wrappingWidth="330.01399993896484">
+                                                <Text fx:id="medicineDescriptionText" layoutX="10.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Description" textAlignment="CENTER" wrappingWidth="330.01399993896484">
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
                                                    </VBox.margin></Text>
-                                                <Text layoutX="10.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Entry Date" textAlignment="CENTER" wrappingWidth="330.01399993896484">
+                                                <Text fx:id="medicineEntryDateText" layoutX="10.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Entry Date" textAlignment="CENTER" wrappingWidth="330.01399993896484">
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
                                                    </VBox.margin></Text>
+                                                <Text fx:id="medicineAvailabilityText" layoutX="10.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Availability" textAlignment="CENTER" wrappingWidth="330.01399993896484">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </Text>
                                              </children>
                                           </VBox>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <VBox.margin>
                                           <Insets top="100.0" />
                                        </VBox.margin>
                                        <children>
-                                          <JFXButton contentDisplay="TOP" onAction="#loadItemCheckout" prefHeight="72.0" prefWidth="140.0" styleClass="setup-button" stylesheets="@main.css" text="CheckOut">
+                                          <JFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#loadItemCheckout" prefHeight="72.0" prefWidth="140.0" styleClass="setup-button" stylesheets="@main.css" text="CheckOut">
                                              <graphic>
-                                                <Icons525View fill="#2dcc14" glyphName="LOGOUT" size="50" />
+                                                <Icons525View fx:id="checkOutButton" fill="#2dcc14" glyphName="LOGOUT" size="50" />
                                              </graphic>
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
                                           </JFXButton>
                                        </children>
                                     </HBox>
