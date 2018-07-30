@@ -1,0 +1,605 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (signature.cpp:54), pid=10271, tid=0x00007fdd75628700
+#  fatal error: expecting (
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_181-b13) (build 1.8.0_181-b13)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.181-b13 mixed mode linux-amd64 compressed oops)
+# Core dump written. Default location: /home/roger/NetBeansProjects/SalesAssistant/core or core.10271
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fdd6c00a800):  JavaThread "main" [_thread_in_vm, id=10274, stack(0x00007fdd75529000,0x00007fdd75629000)]
+
+Stack: [0x00007fdd75529000,0x00007fdd75629000],  sp=0x00007fdd75622bd0,  free space=998k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xad21aa]  VMError::report_and_die()+0x2ba
+V  [libjvm.so+0x501e99]  report_fatal(char const*, int, char const*)+0x59
+V  [libjvm.so+0x9ec845]  SignatureIterator::expect(char)+0x55
+V  [libjvm.so+0x9ec882]  SignatureIterator::iterate_parameters()+0x22
+V  [libjvm.so+0x593cf3]  frame::interpreter_callee_receiver_addr(Symbol*)+0x43
+V  [libjvm.so+0x690d08]  InterpreterRuntime::resolve_invoke(JavaThread*, Bytecodes::Code)+0x718
+j  java.util.HashMap$Values.<init>(Ljava/util/HashMap;)V+6
+j  java.util.HashMap.values()Ljava/util/Collection;+14
+j  java.lang.invoke.InvokerBytecodeGenerator.cpPatches([B)[Ljava/lang/Object;+14
+j  java.lang.invoke.InvokerBytecodeGenerator.loadMethod([B)Ljava/lang/invoke/MemberName;+3
+j  java.lang.invoke.InvokerBytecodeGenerator.generateCustomizedCode(Ljava/lang/invoke/LambdaForm;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/MemberName;+17
+j  java.lang.invoke.LambdaForm.compileToBytecode()Ljava/lang/invoke/MemberName;+65
+j  java.lang.invoke.DirectMethodHandle.maybeCompile(Ljava/lang/invoke/LambdaForm;Ljava/lang/invoke/MemberName;)V+13
+j  java.lang.invoke.DirectMethodHandle.preparedFieldLambdaForm(Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/LambdaForm;+151
+j  java.lang.invoke.DirectMethodHandle.make(BLjava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/DirectMethodHandle;+155
+j  java.lang.invoke.DirectMethodHandle.make(Ljava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/DirectMethodHandle;+16
+j  java.lang.invoke.MethodHandles$Lookup.getDirectFieldCommon(BLjava/lang/Class;Ljava/lang/invoke/MemberName;Z)Ljava/lang/invoke/MethodHandle;+20
+j  java.lang.invoke.MethodHandles$Lookup.getDirectField(BLjava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/MethodHandle;+5
+j  java.lang.invoke.MethodHandles$Lookup.findGetter(Ljava/lang/Class;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/invoke/MethodHandle;+15
+j  java.lang.invoke.BoundMethodHandle$Factory.makeGetter(Ljava/lang/Class;Ljava/lang/String;I)Ljava/lang/invoke/MethodHandle;+26
+j  java.lang.invoke.BoundMethodHandle$Factory.makeGetters(Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/invoke/MethodHandle;)[Ljava/lang/invoke/MethodHandle;+25
+j  java.lang.invoke.BoundMethodHandle$SpeciesData.initForBootstrap()V+65
+j  java.lang.invoke.BoundMethodHandle$SpeciesData.<clinit>()V+49
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x697a76]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x1056
+V  [libjvm.so+0x65b4ea]  InstanceKlass::call_class_initializer_impl(instanceKlassHandle, Thread*)+0xfa
+V  [libjvm.so+0x65bbe1]  InstanceKlass::initialize_impl(instanceKlassHandle, Thread*)+0x341
+V  [libjvm.so+0x65be01]  InstanceKlass::initialize(Thread*)+0x41
+V  [libjvm.so+0x7ffdaf]  LinkResolver::resolve_field(fieldDescriptor&, KlassHandle, Symbol*, Symbol*, KlassHandle, Bytecodes::Code, bool, bool, Thread*)+0x4df
+V  [libjvm.so+0x800015]  LinkResolver::resolve_field_access(fieldDescriptor&, constantPoolHandle, int, Bytecodes::Code, Thread*)+0x245
+V  [libjvm.so+0x68e525]  InterpreterRuntime::resolve_get_put(JavaThread*, Bytecodes::Code)+0x125
+j  java.lang.invoke.BoundMethodHandle.<clinit>()V+22
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x697a76]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x1056
+V  [libjvm.so+0x65b4ea]  InstanceKlass::call_class_initializer_impl(instanceKlassHandle, Thread*)+0xfa
+V  [libjvm.so+0x65bbe1]  InstanceKlass::initialize_impl(instanceKlassHandle, Thread*)+0x341
+V  [libjvm.so+0x65be01]  InstanceKlass::initialize(Thread*)+0x41
+V  [libjvm.so+0x65b9c4]  InstanceKlass::initialize_impl(instanceKlassHandle, Thread*)+0x124
+V  [libjvm.so+0x65be01]  InstanceKlass::initialize(Thread*)+0x41
+V  [libjvm.so+0x803086]  LinkResolver::resolve_static_call(CallInfo&, KlassHandle&, Symbol*, Symbol*, KlassHandle, bool, bool, Thread*)+0x246
+V  [libjvm.so+0x80330f]  LinkResolver::resolve_invokestatic(CallInfo&, constantPoolHandle, int, Thread*)+0x23f
+V  [libjvm.so+0x8043d1]  LinkResolver::resolve_invoke(CallInfo&, Handle, constantPoolHandle, int, Bytecodes::Code, Thread*)+0x501
+V  [libjvm.so+0x6907a9]  InterpreterRuntime::resolve_invoke(JavaThread*, Bytecodes::Code)+0x1b9
+j  java.lang.invoke.LambdaForm.createIdentityForms()V+551
+j  java.lang.invoke.LambdaForm.<clinit>()V+173
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x697a76]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x1056
+V  [libjvm.so+0x65b4ea]  InstanceKlass::call_class_initializer_impl(instanceKlassHandle, Thread*)+0xfa
+V  [libjvm.so+0x65bbe1]  InstanceKlass::initialize_impl(instanceKlassHandle, Thread*)+0x341
+V  [libjvm.so+0x65be01]  InstanceKlass::initialize(Thread*)+0x41
+V  [libjvm.so+0x803086]  LinkResolver::resolve_static_call(CallInfo&, KlassHandle&, Symbol*, Symbol*, KlassHandle, bool, bool, Thread*)+0x246
+V  [libjvm.so+0x80330f]  LinkResolver::resolve_invokestatic(CallInfo&, constantPoolHandle, int, Thread*)+0x23f
+V  [libjvm.so+0x8043d1]  LinkResolver::resolve_invoke(CallInfo&, Handle, constantPoolHandle, int, Bytecodes::Code, Thread*)+0x501
+V  [libjvm.so+0x6907a9]  InterpreterRuntime::resolve_invoke(JavaThread*, Bytecodes::Code)+0x1b9
+j  java.lang.invoke.DirectMethodHandle.makePreparedLambdaForm(Ljava/lang/invoke/MethodType;I)Ljava/lang/invoke/LambdaForm;+316
+j  java.lang.invoke.DirectMethodHandle.preparedLambdaForm(Ljava/lang/invoke/MethodType;I)Ljava/lang/invoke/LambdaForm;+17
+j  java.lang.invoke.DirectMethodHandle.preparedLambdaForm(Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/LambdaForm;+151
+j  java.lang.invoke.DirectMethodHandle.make(BLjava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/DirectMethodHandle;+137
+j  java.lang.invoke.MethodHandles$Lookup.getDirectMethodCommon(BLjava/lang/Class;Ljava/lang/invoke/MemberName;ZZLjava/lang/Class;)Ljava/lang/invoke/MethodHandle;+201
+j  java.lang.invoke.MethodHandles$Lookup.getDirectMethodNoSecurityManager(BLjava/lang/Class;Ljava/lang/invoke/MemberName;Ljava/lang/Class;)Ljava/lang/invoke/MethodHandle;+8
+j  java.lang.invoke.MethodHandles$Lookup.getDirectMethodForConstant(BLjava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/MethodHandle;+30
+j  java.lang.invoke.MethodHandles$Lookup.linkMethodHandleConstant(BLjava/lang/Class;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/invoke/MethodHandle;+115
+j  java.lang.invoke.MethodHandleNatives.linkMethodHandleConstant(Ljava/lang/Class;ILjava/lang/Class;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/invoke/MethodHandle;+38
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x697a76]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x1056
+V  [libjvm.so+0x698701]  JavaCalls::call_static(JavaValue*, KlassHandle, Symbol*, Symbol*, JavaCallArguments*, Thread*)+0x2d1
+V  [libjvm.so+0xa433da]  SystemDictionary::link_method_handle_constant(KlassHandle, int, KlassHandle, Symbol*, Symbol*, Thread*)+0x32a
+V  [libjvm.so+0x4fe175]  ConstantPool::resolve_constant_at_impl(constantPoolHandle, int, int, Thread*)+0x375
+V  [libjvm.so+0x4fe432]  ConstantPool::resolve_bootstrap_specifier_at_impl(constantPoolHandle, int, Thread*)+0xb2
+V  [libjvm.so+0x7ff254]  LinkResolver::resolve_invokedynamic(CallInfo&, constantPoolHandle, int, Thread*)+0x804
+V  [libjvm.so+0x8044d1]  LinkResolver::resolve_invoke(CallInfo&, Handle, constantPoolHandle, int, Bytecodes::Code, Thread*)+0x601
+V  [libjvm.so+0x691696]  InterpreterRuntime::resolve_invokedynamic(JavaThread*)+0x166
+j  com.sun.javafx.runtime.SystemProperties.<clinit>()V+64
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x697a76]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x1056
+V  [libjvm.so+0x65b4ea]  InstanceKlass::call_class_initializer_impl(instanceKlassHandle, Thread*)+0xfa
+V  [libjvm.so+0x65bbe1]  InstanceKlass::initialize_impl(instanceKlassHandle, Thread*)+0x341
+V  [libjvm.so+0x65be01]  InstanceKlass::initialize(Thread*)+0x41
+V  [libjvm.so+0x803086]  LinkResolver::resolve_static_call(CallInfo&, KlassHandle&, Symbol*, Symbol*, KlassHandle, bool, bool, Thread*)+0x246
+V  [libjvm.so+0x80330f]  LinkResolver::resolve_invokestatic(CallInfo&, constantPoolHandle, int, Thread*)+0x23f
+V  [libjvm.so+0x8043d1]  LinkResolver::resolve_invoke(CallInfo&, Handle, constantPoolHandle, int, Bytecodes::Code, Thread*)+0x501
+V  [libjvm.so+0x6907a9]  InterpreterRuntime::resolve_invoke(JavaThread*, Bytecodes::Code)+0x1b9
+j  com.sun.javafx.application.LauncherImpl.startToolkit()V+11
+j  com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V+0
+j  com.sun.javafx.application.LauncherImpl.launchApplication(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V+409
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x697a76]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x1056
+V  [libjvm.so+0x9a6737]  Reflection::invoke(instanceKlassHandle, methodHandle, Handle, bool, objArrayHandle, BasicType, objArrayHandle, bool, Thread*)+0x5d7
+V  [libjvm.so+0x9a9e47]  Reflection::invoke_method(oopDesc*, Handle, objArrayHandle, Thread*)+0x147
+V  [libjvm.so+0x729c7b]  JVM_InvokeMethod+0x26b
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+100
+j  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+6
+j  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+56
+j  sun.launcher.LauncherHelper$FXHelper.main([Ljava/lang/String;)V+52
+v  ~StubRoutines::call_stub
+V  [libjvm.so+0x697a76]  JavaCalls::call_helper(JavaValue*, methodHandle*, JavaCallArguments*, Thread*)+0x1056
+V  [libjvm.so+0x6d91c2]  jni_invoke_static(JNIEnv_*, JavaValue*, _jobject*, JNICallType, _jmethodID*, JNI_ArgumentPusher*, Thread*)+0x362
+V  [libjvm.so+0x6f5a2a]  jni_CallStaticVoidMethod+0x17a
+C  [libjli.so+0x80ff]  JavaMain+0x81f
+...<more frames>...
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  java.util.HashMap$Values.<init>(Ljava/util/HashMap;)V+6
+j  java.util.HashMap.values()Ljava/util/Collection;+14
+j  java.lang.invoke.InvokerBytecodeGenerator.cpPatches([B)[Ljava/lang/Object;+14
+j  java.lang.invoke.InvokerBytecodeGenerator.loadMethod([B)Ljava/lang/invoke/MemberName;+3
+j  java.lang.invoke.InvokerBytecodeGenerator.generateCustomizedCode(Ljava/lang/invoke/LambdaForm;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/MemberName;+17
+j  java.lang.invoke.LambdaForm.compileToBytecode()Ljava/lang/invoke/MemberName;+65
+j  java.lang.invoke.DirectMethodHandle.maybeCompile(Ljava/lang/invoke/LambdaForm;Ljava/lang/invoke/MemberName;)V+13
+j  java.lang.invoke.DirectMethodHandle.preparedFieldLambdaForm(Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/LambdaForm;+151
+j  java.lang.invoke.DirectMethodHandle.make(BLjava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/DirectMethodHandle;+155
+j  java.lang.invoke.DirectMethodHandle.make(Ljava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/DirectMethodHandle;+16
+j  java.lang.invoke.MethodHandles$Lookup.getDirectFieldCommon(BLjava/lang/Class;Ljava/lang/invoke/MemberName;Z)Ljava/lang/invoke/MethodHandle;+20
+j  java.lang.invoke.MethodHandles$Lookup.getDirectField(BLjava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/MethodHandle;+5
+j  java.lang.invoke.MethodHandles$Lookup.findGetter(Ljava/lang/Class;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/invoke/MethodHandle;+15
+j  java.lang.invoke.BoundMethodHandle$Factory.makeGetter(Ljava/lang/Class;Ljava/lang/String;I)Ljava/lang/invoke/MethodHandle;+26
+j  java.lang.invoke.BoundMethodHandle$Factory.makeGetters(Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/invoke/MethodHandle;)[Ljava/lang/invoke/MethodHandle;+25
+j  java.lang.invoke.BoundMethodHandle$SpeciesData.initForBootstrap()V+65
+j  java.lang.invoke.BoundMethodHandle$SpeciesData.<clinit>()V+49
+v  ~StubRoutines::call_stub
+j  java.lang.invoke.BoundMethodHandle.<clinit>()V+22
+v  ~StubRoutines::call_stub
+j  java.lang.invoke.LambdaForm.createIdentityForms()V+551
+j  java.lang.invoke.LambdaForm.<clinit>()V+173
+v  ~StubRoutines::call_stub
+j  java.lang.invoke.DirectMethodHandle.makePreparedLambdaForm(Ljava/lang/invoke/MethodType;I)Ljava/lang/invoke/LambdaForm;+316
+j  java.lang.invoke.DirectMethodHandle.preparedLambdaForm(Ljava/lang/invoke/MethodType;I)Ljava/lang/invoke/LambdaForm;+17
+j  java.lang.invoke.DirectMethodHandle.preparedLambdaForm(Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/LambdaForm;+151
+j  java.lang.invoke.DirectMethodHandle.make(BLjava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/DirectMethodHandle;+137
+j  java.lang.invoke.MethodHandles$Lookup.getDirectMethodCommon(BLjava/lang/Class;Ljava/lang/invoke/MemberName;ZZLjava/lang/Class;)Ljava/lang/invoke/MethodHandle;+201
+j  java.lang.invoke.MethodHandles$Lookup.getDirectMethodNoSecurityManager(BLjava/lang/Class;Ljava/lang/invoke/MemberName;Ljava/lang/Class;)Ljava/lang/invoke/MethodHandle;+8
+j  java.lang.invoke.MethodHandles$Lookup.getDirectMethodForConstant(BLjava/lang/Class;Ljava/lang/invoke/MemberName;)Ljava/lang/invoke/MethodHandle;+30
+j  java.lang.invoke.MethodHandles$Lookup.linkMethodHandleConstant(BLjava/lang/Class;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/invoke/MethodHandle;+115
+j  java.lang.invoke.MethodHandleNatives.linkMethodHandleConstant(Ljava/lang/Class;ILjava/lang/Class;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/invoke/MethodHandle;+38
+v  ~StubRoutines::call_stub
+j  com.sun.javafx.runtime.SystemProperties.<clinit>()V+64
+v  ~StubRoutines::call_stub
+j  com.sun.javafx.application.LauncherImpl.startToolkit()V+11
+j  com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V+0
+j  com.sun.javafx.application.LauncherImpl.launchApplication(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V+409
+v  ~StubRoutines::call_stub
+j  sun.reflect.NativeMethodAccessorImpl.invoke0(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+0
+j  sun.reflect.NativeMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+100
+j  sun.reflect.DelegatingMethodAccessorImpl.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+6
+j  java.lang.reflect.Method.invoke(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;+56
+j  sun.launcher.LauncherHelper$FXHelper.main([Ljava/lang/String;)V+52
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007fdd6c0c0000 JavaThread "Service Thread" daemon [_thread_blocked, id=10287, stack(0x00007fdd4ece7000,0x00007fdd4ede8000)]
+  0x00007fdd6c0bd800 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=10286, stack(0x00007fdd4ede9000,0x00007fdd4eee9000)]
+  0x00007fdd6c0bb800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=10285, stack(0x00007fdd4eeea000,0x00007fdd4efea000)]
+  0x00007fdd6c0b8800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=10284, stack(0x00007fdd4efeb000,0x00007fdd4f0eb000)]
+  0x00007fdd6c0b7000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=10283, stack(0x00007fdd4f0eb000,0x00007fdd4f1ec000)]
+  0x00007fdd6c084800 JavaThread "Finalizer" daemon [_thread_blocked, id=10282, stack(0x00007fdd4f3d3000,0x00007fdd4f4d4000)]
+  0x00007fdd6c082000 JavaThread "Reference Handler" daemon [_thread_blocked, id=10281, stack(0x00007fdd4f4d4000,0x00007fdd4f5d5000)]
+=>0x00007fdd6c00a800 JavaThread "main" [_thread_in_vm, id=10274, stack(0x00007fdd75529000,0x00007fdd75629000)]
+
+Other Threads:
+  0x00007fdd6c078000 VMThread [stack: 0x00007fdd4f5d6000,0x00007fdd4f6d6000] [id=10280]
+  0x00007fdd6c0c5000 WatcherThread [stack: 0x00007fdd4ebe7000,0x00007fdd4ece7000] [id=10288]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap:
+ PSYoungGen      total 18432K, used 1309K [0x00000000ebd00000, 0x00000000ed180000, 0x0000000100000000)
+  eden space 15872K, 8% used [0x00000000ebd00000,0x00000000ebe47660,0x00000000ecc80000)
+  from space 2560K, 0% used [0x00000000ecf00000,0x00000000ecf00000,0x00000000ed180000)
+  to   space 2560K, 0% used [0x00000000ecc80000,0x00000000ecc80000,0x00000000ecf00000)
+ ParOldGen       total 42496K, used 0K [0x00000000c3600000, 0x00000000c5f80000, 0x00000000ebd00000)
+  object space 42496K, 0% used [0x00000000c3600000,0x00000000c3600000,0x00000000c5f80000)
+ Metaspace       used 3483K, capacity 4576K, committed 4864K, reserved 1056768K
+  class space    used 367K, capacity 398K, committed 512K, reserved 1048576K
+
+Card table byte_map: [0x00007fdd72696000,0x00007fdd7287c000] byte_map_base: 0x00007fdd7207b000
+
+Marking Bits: (ParMarkBitMap*) 0x00007fdd74a160a0
+ Begin Bits: [0x00007fdd702fe000, 0x00007fdd71226000)
+ End Bits:   [0x00007fdd71226000, 0x00007fdd7214e000)
+
+Polling page: 0x00007fdd7565a000
+
+CodeCache: size=245760Kb used=1169Kb max_used=1169Kb free=244590Kb
+ bounds [0x00007fdd5d000000, 0x00007fdd5d270000, 0x00007fdd6c000000]
+ total_blobs=314 nmethods=63 adapters=165
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 0.168 Thread 0x00007fdd6c0bd800 nmethod 56 0x00007fdd5d120e50 code [0x00007fdd5d120fc0, 0x00007fdd5d121170]
+Event: 0.168 Thread 0x00007fdd6c0bd800   57       3       java.lang.Class::getName (21 bytes)
+Event: 0.168 Thread 0x00007fdd6c0bd800 nmethod 57 0x00007fdd5d121550 code [0x00007fdd5d1216c0, 0x00007fdd5d1218a8]
+Event: 0.168 Thread 0x00007fdd6c0bd800   59       3       java.lang.AbstractStringBuilder::append (29 bytes)
+Event: 0.169 Thread 0x00007fdd6c0bd800 nmethod 59 0x00007fdd5d121950 code [0x00007fdd5d121b00, 0x00007fdd5d122018]
+Event: 0.169 Thread 0x00007fdd6c0bd800   60       1       java.lang.invoke.MethodType::returnType (5 bytes)
+Event: 0.169 Thread 0x00007fdd6c0bd800 nmethod 60 0x00007fdd5d122290 code [0x00007fdd5d1223e0, 0x00007fdd5d1224f0]
+Event: 0.169 Thread 0x00007fdd6c0bd800   61       1       java.lang.invoke.MemberName::getDeclaringClass (5 bytes)
+Event: 0.169 Thread 0x00007fdd6c0bd800 nmethod 61 0x00007fdd5d122550 code [0x00007fdd5d1226a0, 0x00007fdd5d1227b0]
+Event: 0.169 Thread 0x00007fdd6c0bd800   62       3       java.lang.Class::getClassLoader (28 bytes)
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (2 events):
+Event: 0.045 Thread 0x00007fdd6c00a800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.defineClass(Ljava/lang/String;[BII)Ljava/lang/Class; name or signature does not match> (0x00000000ebd07cb0) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u181/11358/hotspot/src/sh
+Event: 0.045 Thread 0x00007fdd6c00a800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.prefetchRead(Ljava/lang/Object;J)V name or signature does not match> (0x00000000ebd07f98) thrown at [/HUDSON/workspace/8-2-build-linux-amd64/jdk8u181/11358/hotspot/src/share/vm/prims/jni.c
+
+Events (10 events):
+Event: 0.165 loading class java/util/HashMap$Values
+Event: 0.165 loading class java/util/HashMap$Values done
+Event: 0.165 loading class java/util/HashMap$ValueIterator
+Event: 0.165 loading class java/util/HashMap$HashIterator
+Event: 0.165 loading class java/util/HashMap$HashIterator done
+Event: 0.165 loading class java/util/HashMap$ValueIterator done
+Event: 0.169 loading class java/lang/NoSuchFieldException
+Event: 0.169 loading class java/lang/NoSuchFieldException done
+Event: 0.170 loading class java/lang/invoke/InvokerBytecodeGenerator$CpPatch
+Event: 0.170 loading class java/lang/invoke/InvokerBytecodeGenerator$CpPatch done
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:02 1852936                            /usr/lib/jvm/java-8-jdk/jre/bin/java
+00600000-00601000 rw-p 00000000 08:02 1852936                            /usr/lib/jvm/java-8-jdk/jre/bin/java
+01350000-01371000 rw-p 00000000 00:00 0                                  [heap]
+c3600000-c5f80000 rw-p 00000000 00:00 0 
+c5f80000-ebd00000 ---p 00000000 00:00 0 
+ebd00000-ed180000 rw-p 00000000 00:00 0 
+ed180000-100000000 ---p 00000000 00:00 0 
+100000000-100080000 rw-p 00000000 00:00 0 
+100080000-140000000 ---p 00000000 00:00 0 
+7fdd24000000-7fdd24021000 rw-p 00000000 00:00 0 
+7fdd24021000-7fdd28000000 ---p 00000000 00:00 0 
+7fdd28000000-7fdd28021000 rw-p 00000000 00:00 0 
+7fdd28021000-7fdd2c000000 ---p 00000000 00:00 0 
+7fdd2c000000-7fdd2c021000 rw-p 00000000 00:00 0 
+7fdd2c021000-7fdd30000000 ---p 00000000 00:00 0 
+7fdd30000000-7fdd30058000 rw-p 00000000 00:00 0 
+7fdd30058000-7fdd34000000 ---p 00000000 00:00 0 
+7fdd34000000-7fdd34021000 rw-p 00000000 00:00 0 
+7fdd34021000-7fdd38000000 ---p 00000000 00:00 0 
+7fdd38000000-7fdd380b3000 rw-p 00000000 00:00 0 
+7fdd380b3000-7fdd3c000000 ---p 00000000 00:00 0 
+7fdd3c000000-7fdd3c021000 rw-p 00000000 00:00 0 
+7fdd3c021000-7fdd40000000 ---p 00000000 00:00 0 
+7fdd40000000-7fdd40021000 rw-p 00000000 00:00 0 
+7fdd40021000-7fdd44000000 ---p 00000000 00:00 0 
+7fdd44000000-7fdd44021000 rw-p 00000000 00:00 0 
+7fdd44021000-7fdd48000000 ---p 00000000 00:00 0 
+7fdd48000000-7fdd48021000 rw-p 00000000 00:00 0 
+7fdd48021000-7fdd4c000000 ---p 00000000 00:00 0 
+7fdd4e8c6000-7fdd4eb51000 rw-p 00000000 00:00 0 
+7fdd4eb51000-7fdd4ebe6000 r--s 0110e000 08:02 2236113                    /usr/lib/jvm/java-8-jdk/jre/lib/ext/jfxrt.jar
+7fdd4ebe6000-7fdd4ebe7000 ---p 00000000 00:00 0 
+7fdd4ebe7000-7fdd4ece7000 rw-p 00000000 00:00 0 
+7fdd4ece7000-7fdd4ecea000 ---p 00000000 00:00 0 
+7fdd4ecea000-7fdd4ede8000 rw-p 00000000 00:00 0 
+7fdd4ede8000-7fdd4ede9000 ---p 00000000 00:00 0 
+7fdd4ede9000-7fdd4edec000 ---p 00000000 00:00 0 
+7fdd4edec000-7fdd4eee9000 rw-p 00000000 00:00 0 
+7fdd4eee9000-7fdd4eeea000 ---p 00000000 00:00 0 
+7fdd4eeea000-7fdd4eeed000 ---p 00000000 00:00 0 
+7fdd4eeed000-7fdd4efea000 rw-p 00000000 00:00 0 
+7fdd4efea000-7fdd4efeb000 ---p 00000000 00:00 0 
+7fdd4efeb000-7fdd4efee000 ---p 00000000 00:00 0 
+7fdd4efee000-7fdd4f0eb000 rw-p 00000000 00:00 0 
+7fdd4f0eb000-7fdd4f0ee000 ---p 00000000 00:00 0 
+7fdd4f0ee000-7fdd4f1ec000 rw-p 00000000 00:00 0 
+7fdd4f1ec000-7fdd4f3d3000 r--p 00000000 08:02 286836                     /usr/lib/locale/locale-archive
+7fdd4f3d3000-7fdd4f3d6000 ---p 00000000 00:00 0 
+7fdd4f3d6000-7fdd4f4d4000 rw-p 00000000 00:00 0 
+7fdd4f4d4000-7fdd4f4d7000 ---p 00000000 00:00 0 
+7fdd4f4d7000-7fdd4f5d5000 rw-p 00000000 00:00 0 
+7fdd4f5d5000-7fdd4f5d6000 ---p 00000000 00:00 0 
+7fdd4f5d6000-7fdd50000000 rw-p 00000000 00:00 0 
+7fdd50000000-7fdd50021000 rw-p 00000000 00:00 0 
+7fdd50021000-7fdd54000000 ---p 00000000 00:00 0 
+7fdd54000000-7fdd54021000 rw-p 00000000 00:00 0 
+7fdd54021000-7fdd58000000 ---p 00000000 00:00 0 
+7fdd58000000-7fdd58021000 rw-p 00000000 00:00 0 
+7fdd58021000-7fdd5c000000 ---p 00000000 00:00 0 
+7fdd5c020000-7fdd5c626000 rw-p 00000000 00:00 0 
+7fdd5c626000-7fdd5c800000 r--s 03d6b000 08:02 1852979                    /usr/lib/jvm/java-8-jdk/jre/lib/rt.jar
+7fdd5c800000-7fdd5cc40000 rw-p 00000000 00:00 0 
+7fdd5cc40000-7fdd5d000000 ---p 00000000 00:00 0 
+7fdd5d000000-7fdd5d270000 rwxp 00000000 00:00 0 
+7fdd5d270000-7fdd6c000000 ---p 00000000 00:00 0 
+7fdd6c000000-7fdd6c12e000 rw-p 00000000 00:00 0 
+7fdd6c12e000-7fdd70000000 ---p 00000000 00:00 0 
+7fdd70012000-7fdd7214e000 rw-p 00000000 00:00 0 
+7fdd7214e000-7fdd7214f000 ---p 00000000 00:00 0 
+7fdd7214f000-7fdd7224f000 rw-p 00000000 00:00 0 
+7fdd7224f000-7fdd72250000 ---p 00000000 00:00 0 
+7fdd72250000-7fdd72350000 rw-p 00000000 00:00 0 
+7fdd72350000-7fdd72351000 ---p 00000000 00:00 0 
+7fdd72351000-7fdd72451000 rw-p 00000000 00:00 0 
+7fdd72451000-7fdd72452000 ---p 00000000 00:00 0 
+7fdd72452000-7fdd72567000 rw-p 00000000 00:00 0 
+7fdd72567000-7fdd72696000 ---p 00000000 00:00 0 
+7fdd72696000-7fdd726ab000 rw-p 00000000 00:00 0 
+7fdd726ab000-7fdd727d9000 ---p 00000000 00:00 0 
+7fdd727d9000-7fdd727e4000 rw-p 00000000 00:00 0 
+7fdd727e4000-7fdd7287b000 ---p 00000000 00:00 0 
+7fdd7287b000-7fdd72886000 rw-p 00000000 00:00 0 
+7fdd72886000-7fdd72c3c000 ---p 00000000 00:00 0 
+7fdd72c3c000-7fdd72c57000 r-xp 00000000 08:02 1980943                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/libzip.so
+7fdd72c57000-7fdd72e57000 ---p 0001b000 08:02 1980943                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/libzip.so
+7fdd72e57000-7fdd72e58000 rw-p 0001b000 08:02 1980943                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/libzip.so
+7fdd72e58000-7fdd72e63000 r-xp 00000000 08:02 264340                     /usr/lib/libnss_files-2.27.so
+7fdd72e63000-7fdd73062000 ---p 0000b000 08:02 264340                     /usr/lib/libnss_files-2.27.so
+7fdd73062000-7fdd73063000 r--p 0000a000 08:02 264340                     /usr/lib/libnss_files-2.27.so
+7fdd73063000-7fdd73064000 rw-p 0000b000 08:02 264340                     /usr/lib/libnss_files-2.27.so
+7fdd73064000-7fdd7306a000 rw-p 00000000 00:00 0 
+7fdd7306a000-7fdd73095000 r-xp 00000000 08:02 1980907                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/libjava.so
+7fdd73095000-7fdd73294000 ---p 0002b000 08:02 1980907                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/libjava.so
+7fdd73294000-7fdd73296000 rw-p 0002a000 08:02 1980907                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/libjava.so
+7fdd73296000-7fdd732a3000 r-xp 00000000 08:02 1980942                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/libverify.so
+7fdd732a3000-7fdd734a3000 ---p 0000d000 08:02 1980942                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/libverify.so
+7fdd734a3000-7fdd734a5000 rw-p 0000d000 08:02 1980942                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/libverify.so
+7fdd734a5000-7fdd734ac000 r-xp 00000000 08:02 264335                     /usr/lib/librt-2.27.so
+7fdd734ac000-7fdd736ab000 ---p 00007000 08:02 264335                     /usr/lib/librt-2.27.so
+7fdd736ab000-7fdd736ac000 r--p 00006000 08:02 264335                     /usr/lib/librt-2.27.so
+7fdd736ac000-7fdd736ad000 rw-p 00007000 08:02 264335                     /usr/lib/librt-2.27.so
+7fdd736ad000-7fdd73840000 r-xp 00000000 08:02 264332                     /usr/lib/libm-2.27.so
+7fdd73840000-7fdd73a40000 ---p 00193000 08:02 264332                     /usr/lib/libm-2.27.so
+7fdd73a40000-7fdd73a41000 r--p 00193000 08:02 264332                     /usr/lib/libm-2.27.so
+7fdd73a41000-7fdd73a42000 rw-p 00194000 08:02 264332                     /usr/lib/libm-2.27.so
+7fdd73a42000-7fdd7471e000 r-xp 00000000 08:02 1980947                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/server/libjvm.so
+7fdd7471e000-7fdd7491e000 ---p 00cdc000 08:02 1980947                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/server/libjvm.so
+7fdd7491e000-7fdd749f8000 rw-p 00cdc000 08:02 1980947                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/server/libjvm.so
+7fdd749f8000-7fdd74a43000 rw-p 00000000 00:00 0 
+7fdd74a43000-7fdd74bf6000 r-xp 00000000 08:02 264385                     /usr/lib/libc-2.27.so
+7fdd74bf6000-7fdd74df5000 ---p 001b3000 08:02 264385                     /usr/lib/libc-2.27.so
+7fdd74df5000-7fdd74df9000 r--p 001b2000 08:02 264385                     /usr/lib/libc-2.27.so
+7fdd74df9000-7fdd74dfb000 rw-p 001b6000 08:02 264385                     /usr/lib/libc-2.27.so
+7fdd74dfb000-7fdd74dff000 rw-p 00000000 00:00 0 
+7fdd74dff000-7fdd74e02000 r-xp 00000000 08:02 264333                     /usr/lib/libdl-2.27.so
+7fdd74e02000-7fdd75001000 ---p 00003000 08:02 264333                     /usr/lib/libdl-2.27.so
+7fdd75001000-7fdd75002000 r--p 00002000 08:02 264333                     /usr/lib/libdl-2.27.so
+7fdd75002000-7fdd75003000 rw-p 00003000 08:02 264333                     /usr/lib/libdl-2.27.so
+7fdd75003000-7fdd75019000 r-xp 00000000 08:02 1980879                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/jli/libjli.so
+7fdd75019000-7fdd75218000 ---p 00016000 08:02 1980879                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/jli/libjli.so
+7fdd75218000-7fdd75219000 rw-p 00015000 08:02 1980879                    /usr/lib/jvm/java-8-jdk/jre/lib/amd64/jli/libjli.so
+7fdd75219000-7fdd75232000 r-xp 00000000 08:02 264403                     /usr/lib/libpthread-2.27.so
+7fdd75232000-7fdd75431000 ---p 00019000 08:02 264403                     /usr/lib/libpthread-2.27.so
+7fdd75431000-7fdd75432000 r--p 00018000 08:02 264403                     /usr/lib/libpthread-2.27.so
+7fdd75432000-7fdd75433000 rw-p 00019000 08:02 264403                     /usr/lib/libpthread-2.27.so
+7fdd75433000-7fdd75437000 rw-p 00000000 00:00 0 
+7fdd75437000-7fdd7545c000 r-xp 00000000 08:02 264386                     /usr/lib/ld-2.27.so
+7fdd75463000-7fdd75528000 rw-p 00000000 00:00 0 
+7fdd75528000-7fdd75529000 ---p 00000000 00:00 0 
+7fdd75529000-7fdd7552c000 ---p 00000000 00:00 0 
+7fdd7552c000-7fdd7562d000 rw-p 00000000 00:00 0 
+7fdd7563c000-7fdd7563e000 r--s 00005000 08:03 51511704                   /home/roger/NetBeansProjects/SalesAssistant/dist/PetersProject.jar
+7fdd7563e000-7fdd75651000 rw-p 00000000 00:00 0 
+7fdd75651000-7fdd75659000 rw-s 00000000 00:2d 146079                     /tmp/hsperfdata_roger/10271
+7fdd75659000-7fdd7565a000 rw-p 00000000 00:00 0 
+7fdd7565a000-7fdd7565b000 r--p 00000000 00:00 0 
+7fdd7565b000-7fdd7565c000 r--p 00024000 08:02 264386                     /usr/lib/ld-2.27.so
+7fdd7565c000-7fdd7565d000 rw-p 00025000 08:02 264386                     /usr/lib/ld-2.27.so
+7fdd7565d000-7fdd7565e000 rw-p 00000000 00:00 0 
+7ffd9e9ea000-7ffd9ea0b000 rw-p 00000000 00:00 0                          [stack]
+7ffd9eace000-7ffd9ead1000 r--p 00000000 00:00 0                          [vvar]
+7ffd9ead1000-7ffd9ead3000 r-xp 00000000 00:00 0                          [vdso]
+
+VM Arguments:
+jvm_args: -Dfile.encoding=UTF-8 
+java_command: pharmaceuticals.assistant.ui.main.Main
+java_class_path (initial): /home/roger/NetBeansProjects/SalesAssistant/dist/PetersProject.jar:/usr/lib/jvm/java-8-jdk/jre/lib/javaws.jar:/usr/lib/jvm/java-8-jdk/jre/lib/deploy.jar:/usr/lib/jvm/java-8-jdk/jre/lib/plugin.jar:/home/roger/NetBeansProjects/SalesAssistant/Libs/derby.jar:/home/roger/NetBeansProjects/SalesAssistant/Libs/derbyclient.jar:/home/roger/NetBeansProjects/SalesAssistant/Libs/jfoenix-8.0.5.jar:/home/roger/NetBeansProjects/SalesAssistant/Libs/fontawesomefx-icons525-3.0.0-4.jar:/home/roger/NetBeansProjects/SalesAssistant/Libs/fontawesomefx-fontawesome-4.7.0-5.jar:/home/roger/NetBeansProjects/SalesAssistant/Libs/fontawesomefx-octicons-4.3.0-5.jar:/home/roger/NetBeansProjects/SalesAssistant/Libs/fontawesomefx-commons-8.15.jar:/home/roger/NetBeansProjects/SalesAssistant/build/classes
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/usr/lib/jvm/java-8-jdk
+_JAVA_OPTIONS=
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/lib/jvm/java-8-jdk/bin/
+LD_LIBRARY_PATH=/usr/lib/jvm/java-8-jdk/jre/lib/amd64:/usr/lib/jvm/java-8-jdk/jre/lib/i386:
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xad2a40], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xad2a40], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x92a610], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x92a610], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x92a610], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x92a610], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x92be70], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: SIG_IGN, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGINT: SIG_IGN, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGTERM: [libjvm.so+0x92d270], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x92d270], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:LSB_VERSION=1.4
+DISTRIB_ID=Arch
+DISTRIB_RELEASE=rolling
+DISTRIB_DESCRIPTION="Arch Linux"
+
+uname:Linux 4.17.10-1-ARCH #1 SMP PREEMPT Wed Jul 25 11:23:00 UTC 2018 x86_64
+libc:glibc 2.27 NPTL 2.27 
+rlimit: STACK 8192k, CORE infinity, NPROC 15454, NOFILE 4096, AS infinity
+load average:1.06 1.17 1.21
+
+/proc/meminfo:
+MemTotal:        3967968 kB
+MemFree:          267568 kB
+MemAvailable:    1044036 kB
+Buffers:           43656 kB
+Cached:           840220 kB
+SwapCached:          532 kB
+Active:          2377388 kB
+Inactive:        1092408 kB
+Active(anon):    1920668 kB
+Inactive(anon):   599504 kB
+Active(file):     456720 kB
+Inactive(file):   492904 kB
+Unevictable:         112 kB
+Mlocked:             112 kB
+SwapTotal:       4194300 kB
+SwapFree:        4182000 kB
+Dirty:               848 kB
+Writeback:             0 kB
+AnonPages:       2585792 kB
+Mapped:           412156 kB
+Shmem:            331052 kB
+Slab:             114348 kB
+SReclaimable:      67420 kB
+SUnreclaim:        46928 kB
+KernelStack:        9440 kB
+PageTables:        30856 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     6178284 kB
+Committed_AS:    6461488 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:      143104 kB
+DirectMap2M:     3977216 kB
+DirectMap1G:     1048576 kB
+
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 69 stepping 1, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 69
+model name	: Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz
+stepping	: 1
+microcode	: 0x1c
+cpu MHz		: 2539.299
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm ida arat pln pts
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass
+bogomips	: 4790.46
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 69
+model name	: Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz
+stepping	: 1
+microcode	: 0x1c
+cpu MHz		: 2628.654
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm ida arat pln pts
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass
+bogomips	: 4790.46
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 69
+model name	: Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz
+stepping	: 1
+microcode	: 0x1c
+cpu MHz		: 2394.476
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm ida arat pln pts
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass
+bogomips	: 4790.46
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 69
+model name	: Intel(R) Core(TM) i5-4210U CPU @ 1.70GHz
+stepping	: 1
+microcode	: 0x1c
+cpu MHz		: 2394.582
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm ida arat pln pts
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass
+bogomips	: 4790.46
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 3967968k(267576k free), swap 4194300k(4182000k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.181-b13) for linux-amd64 JRE (1.8.0_181-b13), built on Jul  7 2018 00:56:38 by "java_re" with gcc 4.3.0 20080428 (Red Hat 4.3.0-8)
+
+time: Mon Jul 30 07:52:34 2018
+elapsed time: 0 seconds (0d 0h 0m 0s)
+

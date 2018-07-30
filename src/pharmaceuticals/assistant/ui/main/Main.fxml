@@ -26,33 +26,33 @@
          <right>
             <VBox prefHeight="438.0" prefWidth="146.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="88.0" prefWidth="147.0" text="Add Item">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#loadAddItem" prefHeight="88.0" prefWidth="147.0" text="Add Item">
                      <graphic>
-                        <Icons525View glyphName="ADDTHIS" size="50" />
+                        <Icons525View fill="#2dcc14" glyphName="ADDTHIS" size="50" />
                      </graphic></Button>
-                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="147.0" text="Add User">
+                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadAddUser" prefHeight="88.0" prefWidth="147.0" text="Add User">
                      <graphic>
-                        <Icons525View glyphName="USER_PLUS" size="50" />
+                        <Icons525View fill="#2dcc14" glyphName="USER_PLUS" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="147.0" text="View Items">
+                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="98.0" mnemonicParsing="false" onAction="#loadViewItems" prefHeight="88.0" prefWidth="147.0" text="View Items">
                      <graphic>
-                        <Icons525View glyphName="DATABASE" size="50" />
+                        <Icons525View fill="#2dcc14" glyphName="DATABASE" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="186.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="147.0" text="View Users">
+                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="186.0" mnemonicParsing="false" onAction="#loadViewUsers" prefHeight="88.0" prefWidth="147.0" text="View Users">
                      <graphic>
-                        <Icons525View glyphName="USER" size="50" />
+                        <Icons525View fill="#2dcc14" glyphName="USER" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="147.0" text="Settings">
+                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" onAction="#loadSettings" prefHeight="88.0" prefWidth="147.0" text="Settings">
                      <graphic>
-                        <OctIconView glyphName="SETTINGS" size="50" />
+                        <OctIconView fill="#2dcc14" glyphName="SETTINGS" size="50" />
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="362.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="147.0" text="Logout">
+                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="362.0" mnemonicParsing="false" onAction="#loadLogout" prefHeight="88.0" prefWidth="147.0" text="Logout">
                      <graphic>
-                        <Icons525View glyphName="SIGN_OUT" size="50" />
+                        <Icons525View fill="#2dcc14" glyphName="SIGN_OUT" size="50" />
                      </graphic>
                   </Button>
                </children>
@@ -125,9 +125,9 @@
                                           <Insets top="100.0" />
                                        </VBox.margin>
                                        <children>
-                                          <JFXButton contentDisplay="TOP" prefHeight="72.0" prefWidth="140.0" text="CheckOut">
+                                          <JFXButton contentDisplay="TOP" onAction="#loadItemCheckout" prefHeight="72.0" prefWidth="140.0" styleClass="setup-button" stylesheets="@main.css" text="CheckOut">
                                              <graphic>
-                                                <Icons525View glyphName="LOGOUT" size="50" />
+                                                <Icons525View fill="#2dcc14" glyphName="LOGOUT" size="50" />
                                              </graphic>
                                           </JFXButton>
                                        </children>
@@ -152,9 +152,9 @@
                                  <bottom>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <JFXButton buttonType="RAISED" contentDisplay="TOP" prefHeight="87.0" prefWidth="127.0" text="Update">
+                                          <JFXButton buttonType="RAISED" contentDisplay="TOP" onAction="#loadUpdateItem" prefHeight="87.0" prefWidth="127.0" styleClass="setup-button" stylesheets="@main.css" text="Update">
                                              <graphic>
-                                                <FontAwesomeIconView glyphName="EXCHANGE" size="50" />
+                                                <FontAwesomeIconView fill="#2dcc14" glyphName="EXCHANGE" size="50" />
                                              </graphic>
                                           </JFXButton>
                                        </children>
