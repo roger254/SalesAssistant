@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pharmaceuticals.assistant.database.DatabaseHandler;
 
 /**
  *
@@ -27,6 +28,9 @@ public class Main extends Application {
         
         stage.setScene(scene);
         stage.show();
+        
+        
+        DatabaseHandler.getInstance();
     }
 
     /**
