@@ -29,8 +29,9 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
         
+        //database is initialized in different thread
+        new Thread(DatabaseHandler::getInstance).start();  
         
-        DatabaseHandler.getInstance();
     }
 
     /**

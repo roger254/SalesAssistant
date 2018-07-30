@@ -53,10 +53,12 @@ public class AddItemController implements Initializable {
     @FXML
     private AnchorPane rootPane;
     
+     Date today = new Date(Calendar.getInstance().getTime().getTime());
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        databaseHandler = DatabaseHandler.getInstance();
-       Date today = new Date(Calendar.getInstance().getTime().getTime());
+      
        itemEntryDate.setText(today.toString());
        itemId.setText(String.valueOf(getNextID()));
        
@@ -80,12 +82,11 @@ public class AddItemController implements Initializable {
             alert.showAndWait();
             return;
         }
-     
-        String qu = "INSERT INTO MEDICINEITEMS VALUES("
+        
+        String qu = "INSERT INTO MEDICINEITEMS (id,name,description,price,quantity,isAvailable) VALUES("
                 + "'" + itemId + "',"
                 + "'" + itemName + "',"
                 + "'" + itemDescription + "',"
-                + "'" + itemEntryDate + "',"
                 + "" + Double.parseDouble(itemPrice) + ","
                 + "" + Integer.parseInt(itemQuantity) + ","
                 + "" + "true" + ""

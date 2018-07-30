@@ -111,6 +111,14 @@ public class ItemListController implements Initializable {
             this.medicineEntryDate = new SimpleObjectProperty<>(medicineEntryDate);
             this.medicineAvailability =  new SimpleBooleanProperty(medicineAvailability);
         }
+        public MedicineItem(String medicineName,int medicineQuantity, double medicinePrice){
+            this.medicineName = new SimpleStringProperty(medicineName);
+            this.medicineQuantity = new SimpleIntegerProperty(medicineQuantity);
+            this.medicinePrice = new SimpleDoubleProperty(medicinePrice);
+            this.medicineDescription = new SimpleStringProperty();
+            this.medicineEntryDate = new SimpleObjectProperty<>();
+            this.medicineAvailability =  new SimpleBooleanProperty();
+        }
 
 
         public String getMedicineName() {
