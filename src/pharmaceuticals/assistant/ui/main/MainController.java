@@ -206,91 +206,84 @@ public class MainController implements Initializable {
     
     void addToCheckOut(String medicineName, int quantityToSell, int previousMedicineQuantity,Double medicinePrice, String userName){
         //checking if the item is already on check out list
-            String checkItem  = "SELECT * FROM CHECKOUT WHERE medicineName ='" + medicineName +"'";
-            ResultSet checkQuery = handler.executeQuery(checkItem);
-            try {
-                if(checkQuery.next()){
-                    int previousQuantity = checkQuery.getInt("medicineQuantity");
-                    String updateQuery = "UPDATE CHECKOUT SET medicineQuantity = " +(previousQuantity + quantityToSell) + " WHERE medicineName = '" + medicineName + "'";
-                    String updateMedicineQuery  = "UPDATE MEDICINEITEMS SET quantity = " + (previousMedicineQuantity - quantityToSell) + " WHERE name = '" + medicineName + "'";
-                    if (handler.execAction(updateQuery) && handler.execAction(updateMedicineQuery)){
-                        Alert checkOutSuccess = new Alert(Alert.AlertType.INFORMATION);
-                        checkOutSuccess.setTitle("Success");
-                        checkOutSuccess.setHeaderText(null);
-                        checkOutSuccess.setContentText("Checkout Updated");
-                        checkOutSuccess.showAndWait();
-                        initTable();
-                    }else {
-                        Alert checkOutSuccess = new Alert(Alert.AlertType.ERROR);
-                        checkOutSuccess.setTitle("Failed");
-                        checkOutSuccess.setHeaderText(null);
-                        checkOutSuccess.setContentText("Checkout Update Failed");
-                        checkOutSuccess.showAndWait();
-                    }
+        String checkItem  = "SELECT * FROM CHECKOUT WHERE medicineName ='" + medicineName +"'";
+        ResultSet checkQuery = handler.executeQuery(checkItem);
+        try {
+            if(checkQuery.next()){
+                int previousQuantity = checkQuery.getInt("medicineQuantity");
+                String updateQuery = "UPDATE CHECKOUT SET medicineQuantity = " +(previousQuantity + quantityToSell) + " WHERE medicineName = '" + medicineName + "'";
+                String updateMedicineQuery  = "UPDATE MEDICINEITEMS SET quantity = " + (previousMedicineQuantity - quantityToSell) + " WHERE name = '" + medicineName + "'";
+                if (handler.execAction(updateQuery) && handler.execAction(updateMedicineQuery)){
+                    Alert checkOutSuccess = new Alert(Alert.AlertType.INFORMATION);
+                    checkOutSuccess.setTitle("Success");
+                    checkOutSuccess.setHeaderText(null);
+                    checkOutSuccess.setContentText("Checkout Updated");
+                    checkOutSuccess.showAndWait();
+                    initTable();
                 }else {
-                    //TODO: check on prepared statements
-                    String insertQuery = "INSERT INTO CHECKOUT(medicineName,medicinePrice,medicineQuantity,userName) VALUES ("
-                            + "'"+ medicineName +"',"
-                            + "" + medicinePrice + ","
-                            + "" + quantityToSell + ","
-                            + "'" + userName + "'"
-                            + ")";
-                    //TODO: do this after sell
-                    int newQuantity = previousMedicineQuantity - quantityToSell;//prompt for this amount
-                    String updateMedicineQuery  = "UPDATE MEDICINEITEMS SET quantity = " + newQuantity + " WHERE name = '" + medicineName + "'";
-                    
-                    System.out.println(insertQuery + " and " + updateMedicineQuery);
-                    
-                    if(handler.execAction(insertQuery) && handler.execAction(updateMedicineQuery)){
-                        Alert checkOutSuccess = new Alert(Alert.AlertType.INFORMATION);
-                        checkOutSuccess.setTitle("Success");
-                        checkOutSuccess.setHeaderText(null);
-                        checkOutSuccess.setContentText("Checkout Done");
-                        checkOutSuccess.showAndWait();
-                        initTable();
-                    }else {
-                        Alert checkOutFail = new Alert(Alert.AlertType.ERROR);
-                        checkOutFail.setTitle("Failed");
-                        checkOutFail.setHeaderText(null);
-                        checkOutFail.setContentText("Checkout Failed");
-                        checkOutFail.showAndWait();
-                    }
+                    Alert checkOutSuccess = new Alert(Alert.AlertType.ERROR);
+                    checkOutSuccess.setTitle("Failed");
+                    checkOutSuccess.setHeaderText(null);
+                    checkOutSuccess.setContentText("Checkout Update Failed");
+                    checkOutSuccess.showAndWait();
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            }else {
+                //TODO: check on prepared statements
+                String insertQuery = "INSERT INTO CHECKOUT(medicineName,medicinePrice,medicineQuantity,userName) VALUES ("
+                        + "'"+ medicineName +"',"
+                        + "" + medicinePrice + ","
+                        + "" + quantityToSell + ","
+                        + "'" + userName + "'"
+                        + ")";
+                //TODO: do this after sell
+                int newQuantity = previousMedicineQuantity - quantityToSell;//prompt for this amount
+                String updateMedicineQuery  = "UPDATE MEDICINEITEMS SET quantity = " + newQuantity + " WHERE name = '" + medicineName + "'";
+                
+                System.out.println(insertQuery + " and " + updateMedicineQuery);
+                
+                if(handler.execAction(insertQuery) && handler.execAction(updateMedicineQuery)){
+                    Alert checkOutSuccess = new Alert(Alert.AlertType.INFORMATION);
+                    checkOutSuccess.setTitle("Success");
+                    checkOutSuccess.setHeaderText(null);
+                    checkOutSuccess.setContentText("Checkout Done");
+                    checkOutSuccess.showAndWait();
+                    initTable();
+                }else {
+                    Alert checkOutFail = new Alert(Alert.AlertType.ERROR);
+                    checkOutFail.setTitle("Failed");
+                    checkOutFail.setHeaderText(null);
+                    checkOutFail.setContentText("Checkout Failed");
+                    checkOutFail.showAndWait();
+                }
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @FXML
     private void handleSell() {
-       if(checkOutList.size() > 0 ){
-           String query = "SELECT * FROM MEDICINEITEMS";
-           ResultSet result = handler.executeQuery(query);
-           try {
-               while(result.next()){
-                   String medicineName = result.getString("name");
-                   int medicineQuantity = result.getInt("quantity");
-                   Double medicinePrice = result.getDouble("price");
-                   MedicineItem fromDatabase = new MedicineItem(medicineName,medicineQuantity,medicinePrice);
-                   for (MedicineItem medicineItem : checkOutList){
-                       if (medicineItem.equals(fromDatabase)){
-                           int newQuantity = fromDatabase.getMedicineQuantity() - medicineItem.getMedicineQuantity();
-                           String updateQuery =  "UPDATE MEDICINEITEMS SET quantity = " + newQuantity + " WHERE name = '" + fromDatabase.getMedicineName() + "'";
-                           if(handler.execAction(updateQuery))
-                               System.out.println("Successfully updated");
-                       }
-                   }
-               }
-           } catch (SQLException ex) {
-               Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-           }
-       }
-       
-       
+        if(checkOutList.size() > 0 ){
+            for (MedicineItem medicineItem : checkOutList){
+                String query = "SELECT quantity FROM MEDICINEITEMS WHERE name  = '"+ medicineItem.getMedicineName() +"'";
+                ResultSet result = handler.executeQuery(query);
+                int quantity = 0;
+                try {
+                    while(result.next()){
+                        quantity = result.getInt("quantity");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String updateQuery = "UPDATE MEDICINEITEMS SET quantity = " + (quantity - medicineItem.getMedicineQuantity()) + " WHERE name = '" + medicineItem.getMedicineName() + "'";
+                if(handler.execAction(updateQuery))
+                    System.out.println("Success");
+            }
+        }
     }
     
     private void initTable(){
-         String infoQuery = "SELECT medicineName, medicinePrice, medicineQuantity FROM CHECKOUT";
+        String infoQuery = "SELECT medicineName, medicinePrice, medicineQuantity FROM CHECKOUT";
         ResultSet result = handler.executeQuery(infoQuery);
         try {
             while(result.next()){
@@ -303,8 +296,8 @@ public class MainController implements Initializable {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         /*
-         nameColumn.setCellValueFactory(new PropertyValueFactory<>("medicineName"));
-       quantityColumn.setCellValueFactory(new PropertyValueFactory<>("medicineQuantity"
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("medicineName"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("medicineQuantity"
         */
         medicineNameColumn.setCellValueFactory(new PropertyValueFactory<>("medicineName"));
         medicineQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("medicineQuantity"));
