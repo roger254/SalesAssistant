@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -120,7 +121,6 @@ public class ItemListController implements Initializable {
             this.medicineAvailability =  new SimpleBooleanProperty();
         }
 
-
         public String getMedicineName() {
             return medicineName.get();
         }
@@ -144,5 +144,34 @@ public class ItemListController implements Initializable {
         public Boolean getMedicineAvailability() {
             return medicineAvailability.get();
         }
+
+        @Override
+        public int hashCode() {
+            int hash = 7;
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final MedicineItem other = (MedicineItem) obj;
+            if (!Objects.equals(this.medicineName, other.medicineName)) {
+                return false;
+            }
+            if (!Objects.equals(this.medicinePrice, other.medicinePrice)) {
+                return false;
+            }
+            return true;
+        }
+
+        
     }
 }

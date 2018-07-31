@@ -260,9 +260,32 @@ public class MainController implements Initializable {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
-
+    
     @FXML
-    private void handleSell(ActionEvent event) {
+    private void handleSell() {
+       if(checkOutList.size() > 0 ){
+           String query = "SELECT * FROM MEDICINEITEMS";
+           ResultSet result = handler.executeQuery(query);
+           try {
+               while(result.next()){
+                   String medicineName = result.getString("name");
+                   int medicineQuantity = result.getInt("quantity");
+                   Double medicinePrice = result.getDouble("price");
+                   MedicineItem fromDatabase = new MedicineItem(medicineName,medicineQuantity,medicinePrice);
+                   for (MedicineItem medicineItem : checkOutList){
+                       if (medicineItem.equals(fromDatabase)){
+                           int newQuantity = fromDatabase.getMedicineQuantity() - medicineItem.getMedicineQuantity();
+                           String updateQuery =  "UPDATE MEDICINEITEMS SET quantity = " + newQuantity + " WHERE name = '" + fromDatabase.getMedicineName() + "'";
+                           if(handler.execAction(updateQuery))
+                               System.out.println("Successfully updated");
+                       }
+                   }
+               }
+           } catch (SQLException ex) {
+               Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+           }
+       }
+       
        
     }
     

@@ -208,7 +208,7 @@
                               </AnchorPane>
                               <HBox alignment="CENTER" layoutX="182.0" layoutY="369.0" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <JFXButton fx:id="sellButton" alignment="CENTER" centerShape="false" contentDisplay="TOP" disable="true" onAction="#handleSell" prefHeight="73.0" prefWidth="135.0" styleClass="setup-button" stylesheets="@main.css" text="Sell">
+                                    <JFXButton fx:id="sellButton" alignment="CENTER" centerShape="false" contentDisplay="TOP" onAction="#handleSell" prefHeight="73.0" prefWidth="135.0" styleClass="setup-button" stylesheets="@main.css" text="Sell">
                                        <graphic>
                                           <Icons525View fill="#2dcc14" glyphName="SHOPPINGBAG" size="50" text="" />
                                        </graphic></JFXButton>

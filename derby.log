@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Mon Jul 30 22:20:56 EAT 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0164-eca2-e3b5-00000327b850 
-on database directory /home/roger/NetBeansProjects/SalesAssistant/database with class loader sun.misc.Launcher$AppClassLoader@55f96302 
-Loaded from file:/home/roger/NetBeansProjects/SalesAssistant/dist/run2094627443/lib/derby.jar
+Tue Jul 31 08:15:21 EAT 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0164-eec3-191d-0000031ec4e8 
+on database directory /home/roger/NetBeansProjects/SalesAssistant/database with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/home/roger/NetBeansProjects/SalesAssistant/dist/run370264655/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_181-b13
 user.dir=/home/roger/NetBeansProjects/SalesAssistant
@@ -11,3 +11,53 @@ os.arch=amd64
 os.version=4.17.10-1-ARCH
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
+Tue Jul 31 08:15:21 EAT 2018 Thread[JavaFX Application Thread,5,main] (XID = 935), (SESSIONID = 1), (DATABASE = database), (DRDAID = null), Cleanup action starting
+java.lang.NullPointerException
+	at java.io.StringReader.<init>(StringReader.java:50)
+	at org.apache.derby.impl.services.uuid.BasicUUID.<init>(Unknown Source)
+	at org.apache.derby.impl.services.uuid.BasicUUIDFactory.recreateUUID(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.SYSCONGLOMERATESRowFactory.buildDescriptor(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getDescriptorViaIndexMinion(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getDescriptorViaIndex(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getConglomerateDescriptorsScan(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.finishTableDescriptor(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getTableDescriptorIndex1Scan(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getUncachedTableDescriptor(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.NameTDCacheable.setIdentity(Unknown Source)
+	at org.apache.derby.impl.services.cache.ConcurrentCache.find(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getTableDescriptor(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.faultInTabInfo(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getNonCoreTI(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getSPSDescriptorIndex1Scan(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getUncachedSPSDescriptor(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.SPSNameCacheable.setIdentity(Unknown Source)
+	at org.apache.derby.impl.services.cache.ConcurrentCache.find(Unknown Source)
+	at org.apache.derby.impl.sql.catalog.DataDictionaryImpl.getSPSDescriptor(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.prepareSPS(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.getPreparedQueryUsingSystemTables(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.getPreparedQuery(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.getPreparedQuery(Unknown Source)
+	at org.apache.derby.impl.jdbc.EmbedDatabaseMetaData.getTablePrivileges(Unknown Source)
+	at pharmaceuticals.assistant.database.DatabaseHandler.setupMedicineItemTable(DatabaseHandler.java:56)
+	at pharmaceuticals.assistant.database.DatabaseHandler.<init>(DatabaseHandler.java:29)
+	at pharmaceuticals.assistant.database.DatabaseHandler.getInstance(DatabaseHandler.java:36)
+	at pharmaceuticals.assistant.ui.main.MainController.initialize(MainController.java:88)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2548)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2441)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3214)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3175)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3148)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3124)
+	at javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:3104)
+	at javafx.fxml.FXMLLoader.load(FXMLLoader.java:3097)
+	at pharmaceuticals.assistant.ui.main.Main.start(Main.java:25)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$161(LauncherImpl.java:863)
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$174(PlatformImpl.java:326)
+	at com.sun.javafx.application.PlatformImpl.lambda$null$172(PlatformImpl.java:295)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$173(PlatformImpl.java:294)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:95)
+	at com.sun.glass.ui.gtk.GtkApplication._runLoop(Native Method)
+	at com.sun.glass.ui.gtk.GtkApplication.lambda$null$48(GtkApplication.java:139)
+	at java.lang.Thread.run(Thread.java:748)
+Cleanup action completed
