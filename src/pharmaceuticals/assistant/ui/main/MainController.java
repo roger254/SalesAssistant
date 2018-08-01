@@ -68,8 +68,6 @@ public class MainController implements Initializable {
     @FXML
     private JFXButton sellButton;
     @FXML
-    private JFXButton updateButton;
-    @FXML
     private TableView<MedicineItem> medicineTable;
     
     DatabaseHandler handler ;
@@ -87,6 +85,12 @@ public class MainController implements Initializable {
     private TableColumn<MedicineItem, Date> updateEntryDateCol;
     
     EditableTable editableTable;
+    @FXML
+    private TableColumn<?, ?> updateNameCol;
+    @FXML
+    private TableColumn<?, ?> updateDescriptionCol;
+    @FXML
+    private JFXTextField totalAmountField;
     
     /**
      * Initializes the controller class.
@@ -188,6 +192,11 @@ public class MainController implements Initializable {
         Optional<ButtonType> response = alert.showAndWait();
         if (response.get() == ButtonType.OK){
             addToCheckOut(medicineName, quantityToSell, previousMedicineQuantity, medicinePrice, userName);
+            double totalAmount = 0;
+            for(MedicineItem item : checkOutList){
+                totalAmount += (item.getMedicinePrice() * item.getMedicineQuantity());
+            }
+            totalAmountField.setText(String.valueOf(totalAmount));
         }else {
             Alert checkOutStoped = new Alert(Alert.AlertType.INFORMATION);
             checkOutStoped.setTitle("Stopped");
@@ -200,6 +209,7 @@ public class MainController implements Initializable {
     
     @FXML
     private void handleSell() {
+        boolean flag = false;
         if(checkOutList.size() > 0 ){
             for (MedicineItem medicineItem : checkOutList){
                 String query = "SELECT quantity FROM MEDICINEITEMS WHERE name  = '"+ medicineItem.getMedicineName() +"'";
@@ -220,13 +230,15 @@ public class MainController implements Initializable {
                         + ""+ medicineItem.getMedicineQuantity() +""
                         + ")";
                 String deleteQuery = "DELETE FROM CHECKOUT WHERE medicineName = '" + medicineItem.getMedicineName() + "'";
-                if(handler.execAction(updateQuery) && handler.execAction(insertToSold) && handler.execAction(deleteQuery)){
-                    System.out.println("Success");
-                }
+                flag = handler.execAction(updateQuery) && handler.execAction(insertToSold) && handler.execAction(deleteQuery);
             }
         }
-        checkOutList.clear();
-        medicineTable.getItems().clear();
+        if (flag){
+            System.out.println("Success in selling");
+            checkOutList.clear();
+            initTable();
+            totalAmountField.setText("00 : 00");
+        }
     }
     
     private void initTable(){

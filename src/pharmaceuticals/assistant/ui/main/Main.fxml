@@ -20,6 +20,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmaceuticals.assistant.ui.main.MainController">
@@ -246,8 +247,16 @@
                                                 </TableView>
                                             </children>
                                         </AnchorPane>
-                                        <HBox alignment="CENTER" layoutX="182.0" layoutY="369.0" prefHeight="100.0" prefWidth="200.0">
+                                        <HBox alignment="CENTER" layoutX="70.0" layoutY="359.0" prefHeight="100.0" prefWidth="456.0">
                                             <children>
+                                    <JFXTextField fx:id="totalAmountField" alignment="CENTER" disable="true" editable="false" labelFloat="true" prefHeight="57.0" prefWidth="106.0" text="00 : 00">
+                                       <HBox.margin>
+                                          <Insets right="80.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="FontAwesome" size="27.0" />
+                                       </font>
+                                    </JFXTextField>
                                                 <JFXButton fx:id="sellButton" alignment="CENTER" centerShape="false" contentDisplay="TOP" onAction="#handleSell" prefHeight="73.0" prefWidth="135.0" styleClass="setup-button" stylesheets="@main.css" text="Sell">
                                                     <graphic>
                                                         <Icons525View fill="#2dcc14" glyphName="SHOPPINGBAG" size="50" text="" />
