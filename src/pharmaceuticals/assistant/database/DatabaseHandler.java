@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +28,7 @@ public final class DatabaseHandler {
         setupMedicineItemTable();
         setupUserTable();
         setUpCheckoutTable();
+        setUpSoldTable();
     }
     
     public static DatabaseHandler getInstance(){
@@ -122,6 +122,29 @@ public final class DatabaseHandler {
             }
         }catch(SQLException e){
             System.err.println(e.getMessage() + " --- setup CheckOut Table");
+        }
+    }
+    
+    void setUpSoldTable(){
+        String TABLE_NAME = "SOLDITEMS";
+        
+        try{
+            stmt = conn.createStatement();
+            DatabaseMetaData dbm = conn.getMetaData();
+            ResultSet table = dbm.getTablePrivileges(null, TABLE_NAME.toUpperCase(), null);
+            if (table.next()){
+                System.out.println("Table" + TABLE_NAME + "already exists. Ready for go!");
+            }else {
+                stmt.execute("CREATE TABLE " + TABLE_NAME + "("
+                + " userName varchar(200),\n"
+                        + " medicineName varchar(200),\n"
+                + " medicinePrice double precision,\n"
+                + " medicineQuantity integer,\n"
+                + " soldTime timestamp default CURRENT_TIMESTAMP"
+                + ")");
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage() + " --- setup Sold Items Table");
         }
     }
     

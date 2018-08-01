@@ -2,7 +2,7 @@
 package pharmaceuticals.assistant.ui.listItems;
 
 import java.net.URL;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -103,6 +103,7 @@ public class ItemListController implements Initializable {
         private final SimpleStringProperty medicineDescription;
         private final ObjectProperty<Date> medicineEntryDate;
         private final SimpleBooleanProperty medicineAvailability;
+        private boolean sold = false;
 
         public MedicineItem(String medicineName, int medicineQuantity, double medicinePrice, String medicineDescription, Date medicineEntryDate, boolean medicineAvailability) {
             this.medicineName = new SimpleStringProperty(medicineName);
@@ -172,6 +173,28 @@ public class ItemListController implements Initializable {
             return true;
         }
 
+        public boolean isSold() {
+            return sold;
+        }
+
+        public void setSold(boolean sold) {
+            this.sold = sold;
+        }
         
+        public void setMedicineName(String medicineName){
+            this.medicineName.set(medicineName);
+        }
+        
+        public void setMedicineQuantity(int quantity){
+            this.medicineQuantity.set(quantity);
+        }
+        
+        public void setMedicinePrice(double price){
+            this.medicinePrice.set(price);
+        }
+        
+        public void setEntryDate(Date date){
+            this.medicineEntryDate.set(date);
+        }
     }
 }
