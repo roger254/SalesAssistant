@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Wed Aug 01 18:59:33 EAT 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0164-f637-3de1-000003241758 
+Thu Aug 02 10:37:37 EAT 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0164-f991-eded-000003227ea0 
 on database directory /home/roger/NetBeansProjects/SalesAssistant/database with class loader sun.misc.Launcher$AppClassLoader@55f96302 
-Loaded from file:/home/roger/NetBeansProjects/SalesAssistant/dist/run1798953277/lib/derby.jar
+Loaded from file:/home/roger/NetBeansProjects/SalesAssistant/dist/run65138813/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_181-b13
 user.dir=/home/roger/NetBeansProjects/SalesAssistant

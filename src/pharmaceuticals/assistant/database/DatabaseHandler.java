@@ -173,9 +173,3 @@ public final class DatabaseHandler {
            
     }
 }
-
-/*
-JOptionPane.showMessageDialog(null,"Error:" + ex.getMessage(), "Error Occured",JOptionPane.ERROR_MESSAGE);
-            System.out.println("Exception at execAction:dataHandler" + ex.getLocalizedMessage());
-            return false;
-*/

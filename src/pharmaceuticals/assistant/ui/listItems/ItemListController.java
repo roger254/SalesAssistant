@@ -82,7 +82,9 @@ public class ItemListController implements Initializable {
             while(result.next()){
                 String medicineName = result.getString("name");
                 String medicineDescription = result.getString("description");
+                
                 Date medicineEntryDate = result.getDate("entryDate");
+                System.out.println(medicineEntryDate);
                 double medicinePrice = result.getDouble("price");
                 int medicineQuantity = result.getInt("quantity");
                 boolean isAvailable = result.getBoolean("isAvailable");

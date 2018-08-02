@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import pharmaceuticals.assistant.database.DatabaseHandler;
 
 /**
@@ -20,7 +21,7 @@ import pharmaceuticals.assistant.database.DatabaseHandler;
  * @author roger
  */
 public class AddUserController implements Initializable {
-
+    
     @FXML
     private AnchorPane rootPane;
     @FXML
@@ -39,7 +40,7 @@ public class AddUserController implements Initializable {
     private JFXButton cancelButton;
     
     private DatabaseHandler handler;
-
+    
     /**
      * Initializes the controller class.
      */
@@ -49,8 +50,8 @@ public class AddUserController implements Initializable {
         userAccess.getItems().add("Regular User");
         
         handler = DatabaseHandler.getInstance();
-   }    
-
+    }
+    
     @FXML
     private void handleSave(ActionEvent event) {
         String userName = this.userName.getText();
@@ -61,14 +62,14 @@ public class AddUserController implements Initializable {
         
         Boolean flag = userName.isEmpty() || userPassword.isEmpty() || confirmPassword.isEmpty() || userID.isEmpty() || userAccess.isEmpty() ;
         if (flag){
-             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Make sure all fields are entered");
             alert.showAndWait();
             return;
         }
         if (!userPassword.equals(confirmPassword)) {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("The password fields do not match");
             alert.showAndWait();
@@ -84,22 +85,24 @@ public class AddUserController implements Initializable {
         
         System.out.println(stmt);
         if(handler.execAction(stmt)){
-             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("User Saved");
             alert.showAndWait();
             return;
         }else {
-             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Failed to save user");
             alert.showAndWait();
             return;
         }
     }
-
+    
     @FXML
     private void handleCancel(ActionEvent event) {
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
     
 }

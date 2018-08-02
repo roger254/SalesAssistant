@@ -66,8 +66,6 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<MedicineItem, Integer> medicineQuantityColumn;
     @FXML
-    private JFXButton sellButton;
-    @FXML
     private TableView<MedicineItem> medicineTable;
     
     DatabaseHandler handler ;
@@ -85,12 +83,17 @@ public class MainController implements Initializable {
     private TableColumn<MedicineItem, Date> updateEntryDateCol;
     
     EditableTable editableTable;
+   
+    @FXML
+    private JFXTextField totalAmountField;
     @FXML
     private TableColumn<?, ?> updateNameCol;
     @FXML
     private TableColumn<?, ?> updateDescriptionCol;
     @FXML
-    private JFXTextField totalAmountField;
+    private JFXButton cancelSellButton;
+    @FXML
+    private JFXButton sellButton1;
     
     /**
      * Initializes the controller class.
@@ -136,6 +139,9 @@ public class MainController implements Initializable {
     
     @FXML
     private void loadLogout(ActionEvent event) {
+        checkOutList.clear();
+        medicineTable.refresh();
+        System.exit(1);
     }
     
     void loadWindow(String location, String title){
@@ -222,7 +228,12 @@ public class MainController implements Initializable {
                 } catch (SQLException ex) {
                     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                String updateQuery = "UPDATE MEDICINEITEMS SET quantity = " + (quantity - medicineItem.getMedicineQuantity()) + " WHERE name = '" + medicineItem.getMedicineName() + "'";
+                int newQuantity = quantity - medicineItem.getMedicineQuantity();
+                String updateQuery = "";
+                if (newQuantity < 1){
+                     updateQuery = "UPDATE MEDICINEITEMS SET quantity = " + 0 + ", isAvailable = false WHERE name = '" + medicineItem.getMedicineName() + "'";
+                }else if(newQuantity > 0)
+                     updateQuery = "UPDATE MEDICINEITEMS SET quantity = " + newQuantity + " WHERE name = '" + medicineItem.getMedicineName() + "'";
                 String insertToSold = "INSERT INTO SOLDITEMS(userName,medicineName,medicinePrice,medicineQuantity) VALUES("
                         + "'"+ currentUser + "',"
                         + "'"+ medicineItem.getMedicineName()+"',"
@@ -242,6 +253,7 @@ public class MainController implements Initializable {
     }
     
     private void initTable(){
+        checkOutList.clear();
         String infoQuery = "SELECT medicineName, medicinePrice, medicineQuantity FROM CHECKOUT";
         ResultSet result = handler.executeQuery(infoQuery);
         try {
@@ -290,8 +302,9 @@ public class MainController implements Initializable {
             medicineQuantityText.setText(String.valueOf(medicineQuantity));
             medicineDescriptionText.setText(medicineDescription);
             medicineEntryDateText.setText(medicineEntryDate.toString());
-            medicineAvailabilityText.setText(medicineAvailability ? "Available" : "Not available");
-            checkOutButton.setDisable(false);
+            boolean flag = medicineQuantity > 0;
+            medicineAvailabilityText.setText(flag ? "Available" : "Not available");
+            checkOutButton.setDisable(!flag);
         }
     }
     
@@ -350,6 +363,31 @@ public class MainController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void addToCheckOutList(MedicineItem medicineItem) {
+        boolean flag = true;
+        for(MedicineItem item : checkOutList){
+            if(medicineItem.getMedicineName().equals(item.getMedicineName())){
+                int previousQuantity = item.getMedicineQuantity();
+                int newQuantity = previousQuantity + medicineItem.getMedicineQuantity();
+                item.setMedicineQuantity(newQuantity);
+                System.out.println("Updated in checkOut");
+                flag = false;
+            }
+        }
+        if (flag)
+            checkOutList.add(medicineItem);
+    }
+
+    @FXML
+    private void handleCancelSell(ActionEvent event) {
+        String deleteQuery = "DELETE FROM CHECKOUT";
+        if(handler.execAction(deleteQuery)){
+            System.out.println("Deleted");
+        }
+        checkOutList.clear();
+        initTable();
     }
     
 }

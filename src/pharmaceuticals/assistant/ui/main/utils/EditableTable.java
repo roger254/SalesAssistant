@@ -31,7 +31,7 @@ public class EditableTable {
     
     private ObservableList<ItemListController.MedicineItem> currentData = FXCollections.observableArrayList();
     
-    private static final String DATE_PATTERN = "dd/mm/yyyy";
+    private static final String DATE_PATTERN = "yyyy-MM-dd";
     
     private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_PATTERN);
     
@@ -79,8 +79,7 @@ public class EditableTable {
                 int medicineQuantity = result.getInt("quantity");
                 boolean isAvailable = result.getBoolean("isAvailable");
                 
-                if(isAvailable)
-                    currentData.add(new ItemListController.MedicineItem(medicineName, medicineQuantity, medicinePrice, medicineDescription, (java.sql.Date) medicineEntryDate, isAvailable));
+                currentData.add(new ItemListController.MedicineItem(medicineName, medicineQuantity, medicinePrice, medicineDescription, (java.sql.Date) medicineEntryDate, isAvailable));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,11 +197,12 @@ public class EditableTable {
     }
     
     public void handleUpdateButton(){
-        boolean flag = false;
+        boolean flag = false , isAvailable = false;
         for (MedicineItem medicineItem : currentData){
-            //TODO CHECK for a singular wat to do this
+            if(medicineItem.getMedicineQuantity() > 0)
+                isAvailable = true;
             String updateQuery = "UPDATE MEDICINEITEMS SET price = " + medicineItem.getMedicinePrice() + ","
-                    + "quantity = " + medicineItem.getMedicineQuantity() +" WHERE name = '" + medicineItem.getMedicineName() + "'" ;
+                    + "quantity = " + medicineItem.getMedicineQuantity() +", isAvailable = " + isAvailable + " WHERE name = '" + medicineItem.getMedicineName() + "'" ;
             flag = handler.execAction(updateQuery);
         }
         if (flag){

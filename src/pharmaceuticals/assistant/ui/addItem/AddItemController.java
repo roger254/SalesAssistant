@@ -6,11 +6,15 @@
 package pharmaceuticals.assistant.ui.addItem;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -39,7 +43,7 @@ public class AddItemController implements Initializable {
     @FXML
     private JFXTextField itemDescription;
     @FXML
-    private JFXTextField itemEntryDate;
+    private JFXDatePicker itemEntryDate;
     @FXML
     private JFXButton saveButton;
     @FXML
@@ -50,13 +54,13 @@ public class AddItemController implements Initializable {
     @FXML
     private AnchorPane rootPane;
     
-     Date today = new Date(Calendar.getInstance().getTime().getTime());
+    SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy");
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        databaseHandler = DatabaseHandler.getInstance();
       
-       itemEntryDate.setText(today.toString());
+       itemEntryDate.setValue(LocalDate.now());
        itemId.setText(String.valueOf(getNextID()));
        
        checkData();
@@ -68,7 +72,7 @@ public class AddItemController implements Initializable {
         String itemPrice = this.itemPrice.getText();
         String itemQuantity = this.itemQuantity.getText();
         String itemDescription = this.itemDescription.getText();
-        String itemEntryDate = this.itemEntryDate.getText();
+        String itemEntryDate = formater.format(this.itemEntryDate.getValue());
         String itemId = this.itemId.getText();
         //TODO: automate this process of getting the Id
         //TODO: validate the inputs
