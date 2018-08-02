@@ -22,7 +22,7 @@ public final class DatabaseHandler {
     private static final String DB_URL = "jdbc:derby:database;create=true";
     private static Connection conn = null;
     private static Statement stmt = null;
-
+    
     private DatabaseHandler() {
         createConnection();
         setupMedicineItemTable();
@@ -37,7 +37,7 @@ public final class DatabaseHandler {
         return handler;
     }
     
-   //create connection to database
+    //create connection to database
     void createConnection(){
         try{
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
@@ -58,17 +58,17 @@ public final class DatabaseHandler {
                 System.out.println("Table" + TABLE_NAME + "already exists. Ready for go!");
             }else {
                 stmt.execute("CREATE TABLE " + TABLE_NAME + "("
-                + " id varchar(200) not null ,\n"
-                + " name varchar(200) primary key,\n"
-                + " description varchar(254),\n"
-                + " entryDate timestamp default CURRENT_TIMESTAMP,\n"
-                + " price double precision,\n"
-                + " quantity integer,\n"
-                + " isAvailable boolean default true"
-                + ")");
+                        + " id varchar(200) not null ,\n"
+                        + " name varchar(200) primary key,\n"
+                        + " description varchar(254),\n"
+                        + " entryDate timestamp default CURRENT_TIMESTAMP,\n"
+                        + " price double precision,\n"
+                        + " quantity integer,\n"
+                        + " isAvailable boolean default true"
+                        + ")");
             }
         } catch (SQLException ex) {
-           System.err.println(ex.getMessage() + " --- setup Medicine Item table");
+            System.err.println(ex.getMessage() + " --- setup Medicine Item table");
         }finally{
             
         }
@@ -85,14 +85,14 @@ public final class DatabaseHandler {
                 System.out.println("Table" + TABLE_NAME + "already exists. Ready for go!");
             }else {
                 stmt.execute("CREATE TABLE " + TABLE_NAME + "("
-                + " userId varchar(200) not null,\n"
-                + " name varchar(200) primary key,\n"
-                + " password varchar(254),\n"
-                + " userAccess varchar (254)"
-                + ")");
+                        + " userId varchar(200) not null,\n"
+                        + " name varchar(200) primary key,\n"
+                        + " password varchar(254),\n"
+                        + " userAccess varchar (254)"
+                        + ")");
             }
         } catch (SQLException ex) {
-           System.err.println(ex.getMessage() + " --- setup User table");
+            System.err.println(ex.getMessage() + " --- setup User table");
         }finally{
             
         }
@@ -136,12 +136,12 @@ public final class DatabaseHandler {
                 System.out.println("Table" + TABLE_NAME + "already exists. Ready for go!");
             }else {
                 stmt.execute("CREATE TABLE " + TABLE_NAME + "("
-                + " userName varchar(200),\n"
+                        + " userName varchar(200),\n"
                         + " medicineName varchar(200),\n"
-                + " medicinePrice double precision,\n"
-                + " medicineQuantity integer,\n"
-                + " soldTime timestamp default CURRENT_TIMESTAMP"
-                + ")");
+                        + " medicinePrice double precision,\n"
+                        + " medicineQuantity integer,\n"
+                        + " soldTime timestamp default CURRENT_TIMESTAMP"
+                        + ")");
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage() + " --- setup Sold Items Table");
@@ -169,7 +169,7 @@ public final class DatabaseHandler {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseHandler.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        } 
-           
+        }
+        
     }
 }

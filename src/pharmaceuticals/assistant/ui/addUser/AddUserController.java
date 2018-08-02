@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.apache.commons.codec.digest.DigestUtils;
 import pharmaceuticals.assistant.database.DatabaseHandler;
 
 /**
@@ -79,7 +80,7 @@ public class AddUserController implements Initializable {
         String stmt = "INSERT INTO USERTABLE VALUES("
                 + "'" + userID + "',"
                 + "'" + userName + "',"
-                + "'" + userPassword + "',"
+                + "'" + DigestUtils.sha1Hex(userPassword) + "',"
                 + "'" + userAccess + "'"
                 + ")";
         
@@ -89,13 +90,11 @@ public class AddUserController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("User Saved");
             alert.showAndWait();
-            return;
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Failed to save user");
             alert.showAndWait();
-            return;
         }
     }
     

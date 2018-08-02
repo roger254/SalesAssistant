@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
@@ -23,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmaceuticals.assistant.ui.main.MainController">
+<StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmaceuticals.assistant.ui.main.MainController">
     <children>
         <BorderPane prefHeight="476.0" prefWidth="704.0">
             <right>
@@ -49,10 +48,10 @@
                                 <Icons525View fill="#2dcc14" glyphName="USER" size="50" />
                             </graphic>
                         </Button>
-                        <Button contentDisplay="TOP" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" onAction="#loadSettings" prefHeight="88.0" prefWidth="147.0" text="Settings">
-                            <graphic>
-                                <OctIconView fill="#2dcc14" glyphName="SETTINGS" size="50" />
-                            </graphic>
+                        <Button contentDisplay="TOP" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" onAction="#loadSalesPage" prefHeight="88.0" prefWidth="147.0" text="Sales">
+                     <graphic>
+                        <FontAwesomeIconView fx:id="handleSales" fill="#fa0505" glyphName="PIE_CHART" size="50" />
+                     </graphic>
                         </Button>
                         <Button contentDisplay="TOP" layoutX="10.0" layoutY="362.0" mnemonicParsing="false" onAction="#loadLogout" prefHeight="88.0" prefWidth="147.0" text="Logout">
                             <graphic>
@@ -80,6 +79,14 @@
                                 <MenuItem mnemonicParsing="false" text="About" />
                             </items>
                         </Menu>
+                  <Menu fx:id="currentUserMenu" mnemonicParsing="false" text="User">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#handleLogoutUser" text="Logout" />
+                    </items>
+                     <graphic>
+                        <FontAwesomeIconView fill="#0dcd57" glyphName="USER" size="15.0" />
+                     </graphic>
+                  </Menu>
                     </menus>
                 </MenuBar>
             </top>
