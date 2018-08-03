@@ -23,8 +23,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
@@ -102,6 +104,16 @@ public class MainController implements Initializable {
     
     EditableTable editableTable;
     
+    private boolean isRestricted;
+    @FXML
+    private Tab updateItemTab;
+    @FXML
+    private JFXButton cancelSellButton;
+    @FXML
+    private Button addUserButton;
+    @FXML
+    private Button viewUserButton;
+   
     
     /**
      * Initializes the controller class.
@@ -109,6 +121,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         currentUser = LoginController.getCurrentUser();
+        isRestricted = !LoginController.getCurrentUserAccess().equals("ADMIN");
         // TODO
         if(currentUser == null){
             Alert checkOutSuccess = new Alert(Alert.AlertType.ERROR);
@@ -118,10 +131,16 @@ public class MainController implements Initializable {
             checkOutSuccess.showAndWait();
             loadWindow("/pharmaceuticals/assistant/ui/login/login.fxml", "LOGIN");
         }
-        currentUserMenu.setText("Current User: " +currentUser);
+        currentUserMenu.setText(currentUser + " : " + (isRestricted ? "User" : "ADMIN"));
         JFXDepthManager.setDepth(medicineInfo, 1);
         JFXDepthManager.setDepth(checkOutButton, 1);
         handler = DatabaseHandler.getInstance();
+        
+        //restrict access
+        updateItemTab.setDisable(isRestricted);
+        addUserButton.setDisable(isRestricted);
+        viewUserButton.setDisable(isRestricted);
+        
         initCheckOutListTable();
         editableTable = new EditableTable(updateTable, updateEntryDateCol, updatePriceCol, updateQuantityCol, handler);
     }

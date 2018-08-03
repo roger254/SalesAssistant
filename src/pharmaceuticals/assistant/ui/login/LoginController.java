@@ -43,6 +43,8 @@ public class LoginController implements Initializable {
     
     private static String currentUser =  "";
     
+    private static String currentUserAccess = "";
+    
     /**
      * Initializes the controller class.
      */
@@ -53,17 +55,21 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handleLogin(ActionEvent event) {
+        //reset style
         titleLabel.setText("Sales Assistant Login");
         titleLabel.setStyle("-fx-background-color:black;"
                 + "-fx-text-fill:white");
         String userName = loginUserName.getText();
         String password = loginPassword.getText();
         
+        //validate user
         if(validateUser(userName,password)){
             currentUser = userName;
             closeStage();
             loadMain();
+            
         }else {
+            //set style to show invalid
             titleLabel.setText("Invalid Details");
             titleLabel.setStyle("-fx-background-color:#D32F2f;"
                     + "-fx-text-fill:white");
@@ -76,18 +82,17 @@ public class LoginController implements Initializable {
     }
 
     private boolean validateUser(String userName, String password) {
-        /*
-        //checking if the item is already on check out list
-        String checkItem  = "SELECT * FROM CHECKOUT WHERE medicineName ='" + medicineName +"'";
-        ResultSet checkQuery = handler.executeQuery(checkItem);
-        */
+       
         DatabaseHandler handler = DatabaseHandler.getInstance();
-        String query = "SELECT password FROM USERTABLE WHERE name = '" + userName+"'";
+        String query = "SELECT * FROM USERTABLE WHERE name = '" + userName+"'";
         ResultSet result = handler.executeQuery(query);
+        
         boolean flag = false;
+        
         try {
             while(result.next()){
                 String databasePassword = result.getString("password");
+                currentUserAccess = result.getString("userAccess");
                 flag = ((DigestUtils.sha1Hex(password).equals(databasePassword)));
             }
         } catch (SQLException ex) {
@@ -116,5 +121,8 @@ public class LoginController implements Initializable {
     public static String getCurrentUser() {
         return currentUser;
     }
-    
+
+    public static String getCurrentUserAccess() {
+        return currentUserAccess;
+    }  
 }

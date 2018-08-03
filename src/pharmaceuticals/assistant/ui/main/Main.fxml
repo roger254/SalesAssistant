@@ -33,7 +33,7 @@
                                 <Icons525View fill="#2dcc14" glyphName="ADDTHIS" size="50" />
                             </graphic>
                         </Button>
-                        <Button contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadAddUser" prefHeight="88.0" prefWidth="147.0" text="Add User">
+                        <Button fx:id="addUserButton" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadAddUser" prefHeight="88.0" prefWidth="147.0" text="Add User">
                             <graphic>
                                 <Icons525View fill="#2dcc14" glyphName="USER_PLUS" size="50" />
                             </graphic>
@@ -43,14 +43,14 @@
                                 <Icons525View fill="#2dcc14" glyphName="DATABASE" size="50" />
                             </graphic>
                         </Button>
-                        <Button contentDisplay="TOP" layoutX="10.0" layoutY="186.0" mnemonicParsing="false" onAction="#loadViewUsers" prefHeight="88.0" prefWidth="147.0" text="View Users">
+                        <Button fx:id="viewUserButton" contentDisplay="TOP" layoutX="10.0" layoutY="186.0" mnemonicParsing="false" onAction="#loadViewUsers" prefHeight="88.0" prefWidth="147.0" text="View Users">
                             <graphic>
                                 <Icons525View fill="#2dcc14" glyphName="USER" size="50" />
                             </graphic>
                         </Button>
                         <Button contentDisplay="TOP" layoutX="10.0" layoutY="274.0" mnemonicParsing="false" onAction="#loadSalesPage" prefHeight="88.0" prefWidth="147.0" text="Sales">
                      <graphic>
-                        <FontAwesomeIconView fx:id="handleSales" fill="#fa0505" glyphName="PIE_CHART" size="50" />
+                        <FontAwesomeIconView fill="#fa0505" glyphName="PIE_CHART" size="50" />
                      </graphic>
                         </Button>
                         <Button contentDisplay="TOP" layoutX="10.0" layoutY="362.0" mnemonicParsing="false" onAction="#loadLogout" prefHeight="88.0" prefWidth="147.0" text="Logout">
@@ -93,7 +93,7 @@
             <center>
                 <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                     <tabs>
-                        <Tab text="Issue Item">
+                        <Tab closable="false" text="Issue Item">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -174,7 +174,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Update Item">
+                        <Tab fx:id="updateItemTab" text="Update Item">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -236,7 +236,7 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Check Out">
+                        <Tab closable="false" text="Check Out">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
