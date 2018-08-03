@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -45,6 +46,10 @@ import pharmaceuticals.assistant.ui.main.utils.EditableTable;
  */
 public class MainController implements Initializable {
     
+    /**
+     * FXML 
+     * VARIABLES
+     */
     @FXML
     private HBox medicineInfo;
     @FXML
@@ -82,18 +87,13 @@ public class MainController implements Initializable {
     @FXML
     private JFXTextField totalAmountField;
     @FXML
-    private TableColumn<?, ?> updateNameCol;
-    @FXML
-    private TableColumn<?, ?> updateDescriptionCol;
-    @FXML
-    private JFXButton cancelSellButton;
-    @FXML
-    private JFXButton sellButton1;
-    @FXML
     private Menu currentUserMenu;
     @FXML
     private StackPane rootPane;
     
+    /**
+     * Class Variables
+     */
     DatabaseHandler handler ;
     
     private String currentUser = null;
@@ -126,10 +126,9 @@ public class MainController implements Initializable {
         editableTable = new EditableTable(updateTable, updateEntryDateCol, updatePriceCol, updateQuantityCol, handler);
     }
     
-    @FXML
-    private void loadUpdateItem() {
-        editableTable.handleUpdateButton();
-    }
+    /**
+     * Methods for loading other FXML pages
+     */
     
     @FXML
     private void loadAddItem() {
@@ -152,6 +151,30 @@ public class MainController implements Initializable {
     }
     
     @FXML
+    private void loadSalesPage() {
+        loadWindow("/pharmaceuticals/assistant/ui/sales/sales.fxml", "Sales Page");
+    }
+    
+    /**
+     * FXML Button handlers
+     */
+    
+    @FXML
+    private void handleLogoutUser() {
+        //reset current user
+        currentUser = null;
+        //close current pane
+        ((Stage) rootPane.getScene().getWindow()).close();
+        //redirect to login page
+        loadWindow("/pharmaceuticals/assistant/ui/login/login.fxml", "LOGIN");
+    }
+  
+    @FXML
+    private void loadUpdateItem() {
+        editableTable.handleUpdateButton();
+    }
+    
+    @FXML
     private void handleCancelSell() {
         String deleteQuery = "DELETE FROM CHECKOUT";
         if(handler.execAction(deleteQuery)){
@@ -159,18 +182,6 @@ public class MainController implements Initializable {
         }
         checkOutList.clear();
         initCheckOutListTable();
-    }
-    
-    @FXML
-    private void handleLogoutUser() {
-        currentUser = null;
-        ((Stage) rootPane.getScene().getWindow()).close();
-        loadWindow("/pharmaceuticals/assistant/ui/login/login.fxml", "LOGIN");
-    }
-    
-    @FXML
-    private void loadSalesPage() {
-        loadWindow("/pharmaceuticals/assistant/ui/sales/sales.fxml", "Sales Page");
     }
     
     @FXML
@@ -182,23 +193,34 @@ public class MainController implements Initializable {
     
     @FXML
     private void loadMedicineInfo() {
+        //get search input
         String medicineSearchName = medicineNameInput.getText();
+        
+        //check from databas
         String query = "SELECT * FROM MEDICINEITEMS WHERE name = '" + medicineSearchName + "'";
         ResultSet result = handler.executeQuery(query);
+        
         Boolean flag = false;
+        
         try {
             while(result.next()){
+                //collect the medicine details
                 String medicineName = result.getString("name");
                 Double medicinePrice = result.getDouble("price");
                 int medicineQuantity = result.getInt("quantity");
                 String medicineDescription = result.getString("description");
                 Date medicineEntryDate = result.getDate("entryDate");
                 boolean medicineAvailability = result.getBoolean("isAvailable");
+                
+                //display details
                 displayMedicineDetails(medicineName, medicinePrice, medicineQuantity, medicineDescription, medicineEntryDate, medicineAvailability);
                 flag = true;
             }
+            
+            //if not details, send null
             if (!flag)
                 displayMedicineDetails(null, null, 0, null, null, false);
+            
         } catch (SQLException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -217,14 +239,23 @@ public class MainController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText("Check out :" + medicineName + "?");
         
+        //prompt quantity to sell
         int quantityToSell = quantityPrompt(medicineName, previousMedicineQuantity);
         Optional<ButtonType> response = alert.showAndWait();
+        
+        //get response
         if (response.get() == ButtonType.OK){
+            //add to checkout
             addToCheckOut(medicineName, quantityToSell, previousMedicineQuantity, medicinePrice, userName);
+            
+            //update total amoun field
             double totalAmount = 0;
-            for(MedicineItem item : checkOutList){
+            for (MedicineItem item : checkOutList) {
+                //get total amount
                 totalAmount += (item.getMedicinePrice() * item.getMedicineQuantity());
             }
+            
+            //show total amount
             totalAmountField.setText(String.valueOf(totalAmount));
         }else {
             Alert checkOutStoped = new Alert(Alert.AlertType.INFORMATION);
@@ -239,39 +270,52 @@ public class MainController implements Initializable {
     @FXML
     private void handleSell() {
         boolean flag = false;
+        
+        //check if checkout list is not empty
         if(checkOutList.size() > 0 ){
+            
+            //loop through check out list
             for (MedicineItem medicineItem : checkOutList){
+                
                 try {
+                    
                     //get required details(name and quantity
                     final String itemsName = medicineItem.getMedicineName();
                     final int currentQuantity = medicineItem.getMedicineQuantity();
+                    
                     //get items quantity from database
                     int quantity = 0;
                     String query = "SELECT quantity FROM MEDICINEITEMS WHERE name  = '"+ itemsName +"'";
                     ResultSet result = handler.executeQuery(query);
                     
-                    while(result.next()){
+                    //get the quantity
+                    if(result.next()){
                         quantity = result.getInt("quantity");
                     }
                     
                     //get new quantity after selling
                     int newQuantity = quantity - currentQuantity;
                     String updateQuery = "";
+                    
                     //check if new quantity is less than 0
                     if (newQuantity < 1){//make item not available
                         updateQuery = "UPDATE MEDICINEITEMS SET quantity = " + 0 + ", isAvailable = false WHERE name = '" + itemsName + "'";
                     }else if(newQuantity > 0)//set to new quantity
                         updateQuery = "UPDATE MEDICINEITEMS SET quantity = " + newQuantity + " WHERE name = '" + itemsName + "'";
+                    
                     //check if item is in SOLDTABLE
                     String checkQuery = "SELECT * FROM SOLDITEMS WHERE medicineName ='" + itemsName + "'";
                     result = handler.executeQuery(checkQuery);
                     
                     String soldItemQuery = "";
                     if(result.next()){
+                        
                         //updateQuantity if it is
                         int databaseQuantity = result.getInt("medicineQuantity");
                         soldItemQuery = "UPDATE SOLDITEMS SET medicineQuantity = "+ (currentQuantity + databaseQuantity)+ " WHERE medicineName ='" + itemsName + "'";
+                        
                     }else{
+                        
                         //if not add to sell data
                         soldItemQuery = "INSERT INTO SOLDITEMS(userName,medicineName,medicinePrice,medicineQuantity) VALUES("
                                 + "'"+ currentUser + "',"
@@ -279,15 +323,19 @@ public class MainController implements Initializable {
                                 + ""+ medicineItem.getMedicinePrice()+","
                                 + ""+ medicineItem.getMedicineQuantity() +""
                                 + ")";
+                        
                     }
+                    
                     //empty checkOut list
                     String deleteQuery = "DELETE FROM CHECKOUT WHERE medicineName = '" + medicineItem.getMedicineName() + "'";
+                    
                     flag = handler.execAction(updateQuery) && handler.execAction(soldItemQuery) && handler.execAction(deleteQuery);
                 } catch (SQLException ex) {
                     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+        
         //show confirmation of selling
         if (flag){
             Alert checkOutStoped = new Alert(Alert.AlertType.INFORMATION);
@@ -309,27 +357,36 @@ public class MainController implements Initializable {
         }
     }
     
+    /**
+     * Class helper methods
+    */
+    
     //create the checkoutlist table
     private void initCheckOutListTable(){
+        //clear previous checkout list
         checkOutList.clear();
+        //load new checkout list from database
         String infoQuery = "SELECT medicineName, medicinePrice, medicineQuantity FROM CHECKOUT";
         ResultSet result = handler.executeQuery(infoQuery);
+        
         try {
             while(result.next()){
                 String name = result.getString("medicineName");
                 double price = result.getDouble("medicinePrice");
                 int quantity = result.getInt("medicineQuantity");
+                //load the checkoutlist
                 checkOutList.add(new MedicineItem(name,quantity,price));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        //initialize check out table
         medicineNameColumn.setCellValueFactory(new PropertyValueFactory<>("medicineName"));
         medicineQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("medicineQuantity"));
         medicinePriceColumn.setCellValueFactory(new PropertyValueFactory<>("medicinePrice"));
         medicineTable.getItems().setAll(checkOutList);
     }
+    
     //load other windows
     void loadWindow(String location, String title){
         try {
@@ -343,21 +400,26 @@ public class MainController implements Initializable {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     //prompt quantity to be sold
     int quantityPrompt(String medicineName, int medicineQuantity){
         TextInputDialog dialog = new TextInputDialog("Amount");
         dialog.setTitle("Enter Amount");
         dialog.setHeaderText("There are " + medicineQuantity + " " + medicineName + " left");
         dialog.setContentText("Please the amount:");
-        int quantity = 1;
+        
+        int quantity = 1;//default quantity to 1
         Optional<String> amountInput = dialog.showAndWait();
-        if (amountInput.isPresent()) {
+        
+        if (amountInput.isPresent())
             quantity = Integer.parseInt(amountInput.get());
-        }
+        
         return quantity;
     }
+    
     //display medicine details after search
     void displayMedicineDetails(String medicineName, Double medicinePrice, int medicineQuantity, String medicineDescription, Date medicineEntryDate, boolean medicineAvailability){
+        
         if((medicineName == null || medicineName.isEmpty() || medicineName.equals(""))){
             medicineNameText.setText("N/A");
             medicinePriceText.setText("N/A");
@@ -376,6 +438,7 @@ public class MainController implements Initializable {
             checkOutButton.setDisable(!flag);
         }
     }
+    
     //add items to checkout list
     void addToCheckOut(String medicineName, int quantityToSell, int previousMedicineQuantity,Double medicinePrice, String userName){
         //checking if the item is already on check out list
@@ -384,8 +447,10 @@ public class MainController implements Initializable {
         try {
             if(checkQuery.next()){
                 int previousQuantity = checkQuery.getInt("medicineQuantity");
+                
                 String updateQuery = "UPDATE CHECKOUT SET medicineQuantity = " +(previousQuantity + quantityToSell) + " WHERE medicineName = '" + medicineName + "'";
                 String updateMedicineQuery  = "UPDATE MEDICINEITEMS SET quantity = " + (previousMedicineQuantity - quantityToSell) + " WHERE name = '" + medicineName + "'";
+                
                 if (handler.execAction(updateQuery) && handler.execAction(updateMedicineQuery)){
                     Alert checkOutSuccess = new Alert(Alert.AlertType.INFORMATION);
                     checkOutSuccess.setTitle("Success");

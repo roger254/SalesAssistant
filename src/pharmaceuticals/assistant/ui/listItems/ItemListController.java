@@ -98,6 +98,10 @@ public class ItemListController implements Initializable {
         tableView.getItems().setAll(medicineList);
     }
     
+    /**
+     * Medicine Item Class
+     */
+    
     public static class MedicineItem{
         private final SimpleStringProperty medicineName;
         private final SimpleIntegerProperty medicineQuantity;

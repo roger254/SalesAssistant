@@ -64,7 +64,7 @@ public class EditableTable {
         setTableEditable();
     }
     
-    //get data fro database
+    //get data from database
     private void populate(){
         handler = DatabaseHandler.getInstance();
         
@@ -197,14 +197,22 @@ public class EditableTable {
     }
     
     public void handleUpdateButton(){
+        //initialize flag and isAvailable to false
         boolean flag = false , isAvailable = false;
+        
+        //loop through currentData
         for (MedicineItem medicineItem : currentData){
+            
+            //if quantity is more than one set to available
             if(medicineItem.getMedicineQuantity() > 0)
                 isAvailable = true;
+            
+            //update the details changed
             String updateQuery = "UPDATE MEDICINEITEMS SET price = " + medicineItem.getMedicinePrice() + ","
                     + "quantity = " + medicineItem.getMedicineQuantity() +", isAvailable = " + isAvailable + " WHERE name = '" + medicineItem.getMedicineName() + "'" ;
             flag = handler.execAction(updateQuery);
         }
+        
         if (flag){
             Alert checkOutSuccess = new Alert(Alert.AlertType.INFORMATION);
             checkOutSuccess.setTitle("Success");

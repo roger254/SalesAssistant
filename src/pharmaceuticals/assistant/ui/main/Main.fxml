@@ -200,7 +200,7 @@
                                             <center>
                                                 <TableView fx:id="updateTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                     <columns>
-                                                        <TableColumn fx:id="updateNameCol" prefWidth="75.0" text=" Name">
+                                                        <TableColumn prefWidth="75.0" text=" Name">
                                                             <cellValueFactory>
                                                                 <PropertyValueFactory property="medicineName" />
                                                             </cellValueFactory>
@@ -215,7 +215,7 @@
                                                                 <PropertyValueFactory property="medicineQuantity" />
                                                             </cellValueFactory>
                                                         </TableColumn>
-                                                        <TableColumn fx:id="updateDescriptionCol" prefWidth="75.0" text="Description">
+                                                        <TableColumn prefWidth="75.0" text="Description">
                                                             <cellValueFactory>
                                                                 <PropertyValueFactory property="medicineDescription" />
                                                             </cellValueFactory>
@@ -269,7 +269,7 @@
                                           <Font name="FontAwesome" size="27.0" />
                                        </font>
                                     </JFXTextField>
-                                    <JFXButton fx:id="sellButton1" alignment="CENTER" centerShape="false" contentDisplay="TOP" layoutX="311.0" layoutY="19.0" onAction="#handleSell" prefHeight="73.0" prefWidth="135.0" styleClass="setup-button" stylesheets="@main.css" text="Sell">
+                                    <JFXButton alignment="CENTER" centerShape="false" contentDisplay="TOP" layoutX="311.0" layoutY="19.0" onAction="#handleSell" prefHeight="73.0" prefWidth="135.0" styleClass="setup-button" stylesheets="@main.css" text="Sell">
                                        <graphic>
                                           <Icons525View fill="#2dcc14" glyphName="SHOPPINGBAG" size="50" text="" />
                                        </graphic>

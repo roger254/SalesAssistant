@@ -9,13 +9,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,17 +60,18 @@ public class AddItemController implements Initializable {
        itemEntryDate.setValue(LocalDate.now());
        itemId.setText(String.valueOf(getNextID()));
        
-       checkData();
     }    
 
     @FXML
     private void handleSave(ActionEvent event) {
+        //get medicine details
         String itemName = this.itemName.getText();
         String itemPrice = this.itemPrice.getText();
         String itemQuantity = this.itemQuantity.getText();
         String itemDescription = this.itemDescription.getText();
         String itemEntryDate = formater.format(this.itemEntryDate.getValue());
         String itemId = this.itemId.getText();
+        
         //TODO: automate this process of getting the Id
         //TODO: validate the inputs
         if (itemId.isEmpty() || itemName.isEmpty() || itemPrice.isEmpty() || itemQuantity.isEmpty() ||itemQuantity.isEmpty() || itemDescription.isEmpty() || itemEntryDate.isEmpty()){
@@ -93,7 +91,9 @@ public class AddItemController implements Initializable {
                 + "" + "true" + ""
                 + ")";
         
+        //show details posted
         System.out.println(qu);
+        
         if (databaseHandler.execAction(qu))
         {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -115,25 +115,15 @@ public class AddItemController implements Initializable {
         stage.close();
     }
 
-    private void checkData() {
-       String qu = "SELECT name FROM MEDICINEITEMS";
-       ResultSet result = databaseHandler.executeQuery(qu);
-        try {
-            while(result.next()){
-                String itemName = result.getString("name");
-                System.out.println(itemName);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AddItemController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     private int getNextID(){
         String qu = "SELECT id from MEDICINEITEMS";
         ResultSet result = databaseHandler.executeQuery(qu);
+        
         int id = 0;
+        
         try{
             while(result.next()){
+                
                 id = Integer.parseInt(result.getString("id"));
                 System.out.println(id);
             }
