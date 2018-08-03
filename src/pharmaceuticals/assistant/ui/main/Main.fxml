@@ -64,21 +64,6 @@
             <top>
                 <MenuBar BorderPane.alignment="CENTER">
                     <menus>
-                        <Menu mnemonicParsing="false" text="File">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
-                            </items>
-                        </Menu>
                   <Menu fx:id="currentUserMenu" mnemonicParsing="false" text="User">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#handleLogoutUser" text="Logout" />

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pharmaceuticals.assistant.ui.main;
 
 import java.io.IOException;
@@ -59,12 +54,15 @@ public class Main extends Application {
             String checkForUsers  = "SELECT * FROM USERTABLE";
             result = handler.executeQuery(checkForUsers);
             if(!result.next()){
+                
                 try {
+                    
                     Parent parent = FXMLLoader.load(getClass().getResource("/pharmaceuticals/assistant/ui/addUser/addUser.fxml"));
                     Stage stage = new Stage(StageStyle.DECORATED);
                     stage.setTitle("Add New User");
                     stage.setScene(new Scene(parent));
                     stage.showAndWait();
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
