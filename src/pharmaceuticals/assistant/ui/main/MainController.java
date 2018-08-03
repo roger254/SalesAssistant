@@ -39,6 +39,7 @@ import javafx.stage.StageStyle;
 import pharmaceuticals.assistant.database.DatabaseHandler;
 import pharmaceuticals.assistant.ui.listItems.ItemListController.MedicineItem;
 import pharmaceuticals.assistant.ui.login.LoginController;
+import pharmaceuticals.assistant.ui.main.sellDialog.SellDialogController;
 import pharmaceuticals.assistant.ui.main.utils.EditableTable;
 
 /**
@@ -113,6 +114,8 @@ public class MainController implements Initializable {
     private Button addUserButton;
     @FXML
     private Button viewUserButton;
+    
+    private static double totalAmount = 0;
    
     
     /**
@@ -268,14 +271,16 @@ public class MainController implements Initializable {
             addToCheckOut(medicineName, quantityToSell, previousMedicineQuantity, medicinePrice, userName);
             
             //update total amoun field
-            double totalAmount = 0;
+            double currentTotalAmount = 0;
             for (MedicineItem item : checkOutList) {
                 //get total amount
-                totalAmount += (item.getMedicinePrice() * item.getMedicineQuantity());
+                currentTotalAmount += (item.getMedicinePrice() * item.getMedicineQuantity());
             }
             
             //show total amount
-            totalAmountField.setText(String.valueOf(totalAmount));
+            totalAmountField.setText(String.valueOf(currentTotalAmount));
+            //set total amount
+            totalAmount = currentTotalAmount;
         }else {
             Alert checkOutStoped = new Alert(Alert.AlertType.INFORMATION);
             checkOutStoped.setTitle("Stopped");
@@ -290,8 +295,20 @@ public class MainController implements Initializable {
     private void handleSell() {
         boolean flag = false;
         
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("/pharmaceuticals/assistant/ui/main/sellDialog/sellDialog.fxml"));
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle("Sell Confirmation");
+            stage.setScene(new Scene(parent));
+            stage.showAndWait();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         //check if checkout list is not empty
-        if(checkOutList.size() > 0 ){
+        //also confirm payment
+        if(checkOutList.size() > 0 && SellDialogController.confirmSell()){
             
             //loop through check out list
             for (MedicineItem medicineItem : checkOutList){
@@ -516,6 +533,10 @@ public class MainController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static double getTotalAmout() {
+        return totalAmount;
     }
 }
 

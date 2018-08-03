@@ -53,11 +53,6 @@
       </GridPane>
       <TabPane layoutX="220.0" layoutY="130.0" prefHeight="346.0" prefWidth="449.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Untitled Tab 1">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
           <Tab text="Pie Chart">
             <content>
               <AnchorPane fx:id="pieChartTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
