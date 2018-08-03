@@ -199,7 +199,8 @@ public class MainController implements Initializable {
     @FXML
     private void handleCancelSell() {
         String deleteQuery = "DELETE FROM CHECKOUT";
-        if(handler.execAction(deleteQuery)){
+        String delete = "DELETE FROM USERTABLE";
+        if(handler.execAction(deleteQuery) && handler.execAction(delete)){
             System.out.println("Deleted");
         }
         checkOutList.clear();

@@ -1,8 +1,3 @@
- /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pharmaceuticals.assistant.ui.login;
 
 import com.jfoenix.controls.JFXPasswordField;
@@ -31,9 +26,9 @@ import pharmaceuticals.assistant.ui.main.MainController;
  * FXML Controller class
  *
  * @author roger
- */ 
+ */
 public class LoginController implements Initializable {
-
+    
     @FXML
     private JFXTextField loginUserName;
     @FXML
@@ -45,14 +40,17 @@ public class LoginController implements Initializable {
     
     private static String currentUserAccess = "";
     
+    DatabaseHandler handler;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
+        handler = DatabaseHandler.getInstance();
+    }
+    
     @FXML
     private void handleLogin(ActionEvent event) {
         //reset style
@@ -75,34 +73,34 @@ public class LoginController implements Initializable {
                     + "-fx-text-fill:white");
         }
     }
-
+    
     @FXML
     private void handleLogout(ActionEvent event) {
         System.exit(1);
     }
-
+    
     private boolean validateUser(String userName, String password) {
-       
-        DatabaseHandler handler = DatabaseHandler.getInstance();
-        String query = "SELECT * FROM USERTABLE WHERE name = '" + userName+"'";
-        ResultSet result = handler.executeQuery(query);
-        
         boolean flag = false;
-        
         try {
+            
+            
+            String query = "SELECT * FROM USERTABLE WHERE name = '" + userName+"'";
+            ResultSet result = handler.executeQuery(query);
+            
             while(result.next()){
                 String databasePassword = result.getString("password");
                 currentUserAccess = result.getString("userAccess");
                 flag = ((DigestUtils.sha1Hex(password).equals(databasePassword)));
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return flag;
     }
-
+    
     private void closeStage() {
-       ((Stage) loginUserName.getScene().getWindow()).close();
+        ((Stage) loginUserName.getScene().getWindow()).close();
     }
     
     void loadMain (){
@@ -117,12 +115,34 @@ public class LoginController implements Initializable {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public static String getCurrentUser() {
         return currentUser;
     }
-
+    
     public static String getCurrentUserAccess() {
         return currentUserAccess;
-    }  
+    }
+    
+    void checkForUsers(){
+        try {
+            ResultSet result;
+            
+            String checkForUsers  = "SELECT * FROM USERTABLE";
+            result = handler.executeQuery(checkForUsers);
+            if(!result.next()){
+                try {
+                    Parent parent = FXMLLoader.load(getClass().getResource("/pharmaceuticals/assistant/ui/addUser/addUser.fxml"));
+                    Stage stage = new Stage(StageStyle.DECORATED);
+                    stage.setTitle("Dashboard");
+                    stage.setScene(new Scene(parent));
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
