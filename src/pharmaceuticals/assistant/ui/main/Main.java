@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import pharmaceuticals.assistant.database.DatabaseHandler;
 import pharmaceuticals.assistant.ui.login.LoginController;
+import pharmaceuticals.assistant.util.SalesAssistantUtil;
 
 /**
  *
@@ -37,6 +38,10 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle("LOGIN PAGE");
         stage.show();
+        
+        
+        //set the icon
+        SalesAssistantUtil.setStageIcon(stage);
         
     }
 

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,7 +44,8 @@ public final class DatabaseHandler {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
             conn = DriverManager.getConnection(DB_URL);
         } catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Cant load database","Database Error",JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
     }
     

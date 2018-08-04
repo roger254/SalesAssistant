@@ -41,6 +41,7 @@ import pharmaceuticals.assistant.ui.listItems.ItemListController.MedicineItem;
 import pharmaceuticals.assistant.ui.login.LoginController;
 import pharmaceuticals.assistant.ui.main.sellDialog.SellDialogController;
 import pharmaceuticals.assistant.ui.main.utils.EditableTable;
+import pharmaceuticals.assistant.util.SalesAssistantUtil;
 
 /**
  * FXML Controller class
@@ -50,7 +51,7 @@ import pharmaceuticals.assistant.ui.main.utils.EditableTable;
 public class MainController implements Initializable {
     
     /**
-     * FXML 
+     * FXML
      * VARIABLES
      */
     @FXML
@@ -116,7 +117,7 @@ public class MainController implements Initializable {
     private Button viewUserButton;
     
     private static double totalAmount = 0;
-   
+    
     
     /**
      * Initializes the controller class.
@@ -134,6 +135,7 @@ public class MainController implements Initializable {
             checkOutSuccess.showAndWait();
             loadWindow("/pharmaceuticals/assistant/ui/login/login.fxml", "LOGIN");
         }
+        //show user on menu bar
         currentUserMenu.setText(currentUser + " : " + (isRestricted ? "User" : "ADMIN"));
         JFXDepthManager.setDepth(medicineInfo, 1);
         JFXDepthManager.setDepth(checkOutButton, 1);
@@ -190,7 +192,7 @@ public class MainController implements Initializable {
         //redirect to login page
         loadWindow("/pharmaceuticals/assistant/ui/login/login.fxml", "LOGIN");
     }
-  
+    
     @FXML
     private void loadUpdateItem() {
         editableTable.handleUpdateButton();
@@ -199,9 +201,8 @@ public class MainController implements Initializable {
     @FXML
     private void handleCancelSell() {
         String deleteQuery = "DELETE FROM CHECKOUT";
-        String delete = "DELETE FROM USERTABLE";
-        if(handler.execAction(deleteQuery) && handler.execAction(delete)){
-            System.out.println("Deleted");
+        if(handler.execAction(deleteQuery)){
+            System.out.println("Checkout Cleared");
         }
         checkOutList.clear();
         initCheckOutListTable();
@@ -302,7 +303,8 @@ public class MainController implements Initializable {
             stage.setTitle("Sell Confirmation");
             stage.setScene(new Scene(parent));
             stage.showAndWait();
-            
+            //set the icon
+            SalesAssistantUtil.setStageIcon(stage);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -396,7 +398,7 @@ public class MainController implements Initializable {
     
     /**
      * Class helper methods
-    */
+     */
     
     //create the checkoutlist table
     private void initCheckOutListTable(){
@@ -432,7 +434,8 @@ public class MainController implements Initializable {
             stage.setTitle(title);
             stage.setScene(new Scene(parent));
             stage.show();
-            
+            //set the icon
+            SalesAssistantUtil.setStageIcon(stage);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -96,10 +96,15 @@ public class AddUserController implements Initializable {
             alert.setContentText("Failed to save user");
             alert.showAndWait();
         }
+        closeStage();
     }
     
     @FXML
     private void handleCancel(ActionEvent event) {
+        closeStage();
+    }
+    
+    private void closeStage(){
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }

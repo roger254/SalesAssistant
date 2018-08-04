@@ -16,11 +16,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.commons.codec.digest.DigestUtils;
 import pharmaceuticals.assistant.database.DatabaseHandler;
 import pharmaceuticals.assistant.ui.main.MainController;
+import pharmaceuticals.assistant.util.SalesAssistantUtil;
 
 /**
  * FXML Controller class
@@ -110,7 +112,8 @@ public class LoginController implements Initializable {
             stage.setTitle("Dashboard");
             stage.setScene(new Scene(parent));
             stage.show();
-            
+            //set the icon
+            SalesAssistantUtil.setStageIcon(stage);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -144,5 +147,10 @@ public class LoginController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @FXML
+    private void testEnter(MouseEvent event) {
+        
     }
 }

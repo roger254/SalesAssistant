@@ -25,12 +25,12 @@
             <Font size="15.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="loginPassword" alignment="CENTER" labelFloat="true" layoutX="97.0" layoutY="163.0" prefHeight="31.0" prefWidth="241.0" promptText="Password">
+      <JFXPasswordField fx:id="loginPassword" alignment="CENTER" labelFloat="true" layoutX="97.0" layoutY="163.0" onAction="#handleLogin" prefHeight="31.0" prefWidth="241.0" promptText="Password">
          <font>
             <Font size="15.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="43.0" layoutY="219.0" onAction="#handleLogin" prefHeight="73.0" prefWidth="124.0" style="-fx-background-color: lightblue;" text="Login">
+      <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="43.0" layoutY="219.0" onAction="#handleLogin" onMouseDragged="#testEnter" prefHeight="73.0" prefWidth="124.0" style="-fx-background-color: lightblue;" text="Login">
          <graphic>
             <MaterialDesignIconView fill="#2bd312" glyphName="LOGIN" size="40" />
          </graphic>
