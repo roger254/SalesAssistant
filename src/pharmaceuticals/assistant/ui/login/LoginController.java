@@ -2,21 +2,12 @@ package pharmaceuticals.assistant.ui.login;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -24,89 +15,118 @@ import pharmaceuticals.assistant.database.DatabaseHandler;
 import pharmaceuticals.assistant.ui.main.MainController;
 import pharmaceuticals.assistant.util.SalesAssistantUtil;
 
+import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * FXML Controller class
  *
  * @author roger
  */
-public class LoginController implements Initializable {
-    
+public class LoginController implements Initializable
+{
+
+    private static String currentUser = "";
+    private static String currentUserAccess = "";
     @FXML
     private JFXTextField loginUserName;
     @FXML
     private JFXPasswordField loginPassword;
     @FXML
     private Label titleLabel;
-    
-    private static String currentUser =  "";
-    
-    private static String currentUserAccess = "";
-    
-    DatabaseHandler handler;
-    
+    private DatabaseHandler handler;
+
+    public static String getCurrentUser()
+    {
+        return currentUser;
+    }
+
+    public static String getCurrentUserAccess()
+    {
+        return currentUserAccess;
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         // TODO
         handler = DatabaseHandler.getInstance();
+        checkForUsers();
     }
-    
+
     @FXML
-    private void handleLogin(ActionEvent event) {
+    private void handleLogin()
+    {
         //reset style
         titleLabel.setText("Sales Assistant Login");
         titleLabel.setStyle("-fx-background-color:black;"
                 + "-fx-text-fill:white");
         String userName = loginUserName.getText();
         String password = loginPassword.getText();
-        
+
         //validate user
-        if(validateUser(userName,password)){
+        if (validateUser(userName, password))
+        {
             currentUser = userName;
             closeStage();
             loadMain();
-            
-        }else {
+
+        } else
+        {
             //set style to show invalid
             titleLabel.setText("Invalid Details");
             titleLabel.setStyle("-fx-background-color:#D32F2f;"
                     + "-fx-text-fill:white");
         }
     }
-    
+
     @FXML
-    private void handleLogout(ActionEvent event) {
+    private void handleLogout()
+    {
         System.exit(1);
     }
-    
-    private boolean validateUser(String userName, String password) {
+
+    private boolean validateUser(String userName, String password)
+    {
         boolean flag = false;
-        try {
-            
-            
-            String query = "SELECT * FROM USERTABLE WHERE name = '" + userName+"'";
+        try
+        {
+
+
+            String query = "SELECT * FROM USER_TABLE WHERE name = '" + userName + "'";
             ResultSet result = handler.executeQuery(query);
-            
-            while(result.next()){
+
+            while (result != null && result.next())
+            {
                 String databasePassword = result.getString("password");
                 currentUserAccess = result.getString("userAccess");
                 flag = ((DigestUtils.sha1Hex(password).equals(databasePassword)));
             }
-            
-        } catch (SQLException ex) {
+
+        } catch (SQLException ex)
+        {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return flag;
     }
-    
-    private void closeStage() {
+
+    private void closeStage()
+    {
         ((Stage) loginUserName.getScene().getWindow()).close();
     }
-    
-    void loadMain (){
-        try {
+
+    private void loadMain()
+    {
+        try
+        {
             Parent parent = FXMLLoader.load(getClass().getResource("/pharmaceuticals/assistant/ui/main/Main.fxml"));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Dashboard");
@@ -114,43 +134,37 @@ public class LoginController implements Initializable {
             stage.show();
             //set the icon
             SalesAssistantUtil.setStageIcon(stage);
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static String getCurrentUser() {
-        return currentUser;
-    }
-    
-    public static String getCurrentUserAccess() {
-        return currentUserAccess;
-    }
-    
-    void checkForUsers(){
-        try {
+
+    private void checkForUsers()
+    {
+        try
+        {
             ResultSet result;
-            
-            String checkForUsers  = "SELECT * FROM USERTABLE";
+
+            String checkForUsers = "SELECT * FROM USER_TABLE";
             result = handler.executeQuery(checkForUsers);
-            if(!result.next()){
-                try {
+            if (!(result != null && result.next()))
+            {
+                try
+                {
                     Parent parent = FXMLLoader.load(getClass().getResource("/pharmaceuticals/assistant/ui/addUser/addUser.fxml"));
                     Stage stage = new Stage(StageStyle.DECORATED);
                     stage.setTitle("Dashboard");
                     stage.setScene(new Scene(parent));
                     stage.show();
-                } catch (IOException ex) {
+                } catch (IOException ex)
+                {
                     Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    @FXML
-    private void testEnter(MouseEvent event) {
-        
     }
 }

@@ -5,26 +5,31 @@
  */
 package pharmaceuticals.assistant.ui.main.utils;
 
-import java.sql.Date;
 import javafx.util.converter.DateStringConverter;
 
+import java.sql.Date;
+
 /**
- *
  * @author roger
  */
-public class MyDateStringConverter extends DateStringConverter {
-    
-    public MyDateStringConverter(final String pattern){
+public class MyDateStringConverter extends DateStringConverter
+{
+
+    public MyDateStringConverter(final String pattern)
+    {
         super(pattern);
     }
-    
+
     @Override
-    public Date fromString(String value){
+    public Date fromString(String value)
+    {
         //catches the Runtimexception thrown by
         //DateStringConverter.fromString()
-        try{
+        try
+        {
             return (Date) super.fromString(value);
-        }catch (RuntimeException ex){
+        } catch (RuntimeException ex)
+        {
             return null;
         }
     }

@@ -5,9 +5,9 @@
  */
 
 /**
- *
  * @author roger
  */
-public class Test {
-    
+public class Test
+{
+
 }

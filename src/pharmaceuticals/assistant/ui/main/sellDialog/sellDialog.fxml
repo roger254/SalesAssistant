@@ -3,83 +3,98 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<GridPane alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="371.0" style="-fx-background-color: #2396FF;" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmaceuticals.assistant.ui.main.sellDialog.SellDialogController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="158.0" text="Amount Handed:" textAlignment="CENTER" textFill="#0d0d0d" underline="true">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Label>
-      <JFXTextField fx:id="amountPaidInput" alignment="CENTER" focusColor="#1d1d1e" labelFloat="true" onAction="#calculate" promptText="Enter Amount" unFocusColor="#1e1e1e" GridPane.columnIndex="1">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </JFXTextField>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="54.0" prefHeight="47.0" prefWidth="158.0" text="Total Amount:" textAlignment="CENTER" textFill="#252525" underline="true" GridPane.rowIndex="1">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-      </Label>
-      <Text fx:id="totalAmountText" disable="true" fill="#f81010" fontSmoothingType="LCD" lineSpacing="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="CENTER" underline="true" wrappingWidth="179.01200103759766" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <font>
-            <Font name="System Italic" size="34.0" />
-         </font>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-      </Text>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="137.0" prefHeight="47.0" prefWidth="158.0" text="Balance:" textAlignment="CENTER" textFill="#252825" underline="true" GridPane.rowIndex="2">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
-      <Text fx:id="balanceText" disable="true" fill="#6811f7" fontSmoothingType="LCD" layoutX="246.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="CENTER" underline="true" wrappingWidth="180.01200103759766" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <font>
-            <Font name="System Italic" size="34.0" />
-         </font>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-      </Text>
-      <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#handleConfirm" prefHeight="65.0" prefWidth="98.0" ripplerFill="#4a5157" styleClass="setup-button" stylesheets="@../main.css" text="Confirm" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets left="40.0" />
-         </GridPane.margin>
-         <graphic>
-            <FontAwesomeIconView fill="#d31212" glyphName="CHECK_SQUARE_ALT" size="40" />
-         </graphic>
-      </JFXButton>
-      <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="236.0" layoutY="324.0" onAction="#handleCancel" prefHeight="65.0" prefWidth="98.0" ripplerFill="#4a5157" styleClass="setup-button" stylesheets="@../main.css" text="Cancel" underline="true" GridPane.rowIndex="3">
-         <graphic>
-            <FontAwesomeIconView fill="#d31212" glyphName="WARNING" size="40" text="" />
-         </graphic>
-         <GridPane.margin>
-            <Insets left="40.0" />
-         </GridPane.margin>
-      </JFXButton>
-   </children>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity"
+          minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="371.0" style="-fx-background-color: #2396FF;"
+          vgap="10.0" xmlns="http://javafx.com/javafx/8.0.171"
+          fx:controller="pharmaceuticals.assistant.ui.main.sellDialog.SellDialogController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="158.0" text="Amount Handed:"
+               textAlignment="CENTER" textFill="#0d0d0d" underline="true">
+            <font>
+                <Font name="System Bold Italic" size="18.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets left="10.0"/>
+            </GridPane.margin>
+        </Label>
+        <JFXTextField fx:id="amountPaidInput" alignment="CENTER" focusColor="#1d1d1e" labelFloat="true"
+                      onAction="#calculate" promptText="Enter Amount" unFocusColor="#1e1e1e" GridPane.columnIndex="1">
+            <font>
+                <Font size="17.0"/>
+            </font>
+        </JFXTextField>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="54.0" prefHeight="47.0"
+               prefWidth="158.0" text="Total Amount:" textAlignment="CENTER" textFill="#252525" underline="true"
+               GridPane.rowIndex="1">
+            <font>
+                <Font name="System Bold Italic" size="18.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+        </Label>
+        <Text fx:id="totalAmountText" disable="true" fill="#f81010" fontSmoothingType="LCD" lineSpacing="2.0"
+              strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="CENTER" underline="true"
+              wrappingWidth="179.01200103759766" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <font>
+                <Font name="System Italic" size="34.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+        </Text>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="137.0" prefHeight="47.0"
+               prefWidth="158.0" text="Balance:" textAlignment="CENTER" textFill="#252825" underline="true"
+               GridPane.rowIndex="2">
+            <font>
+                <Font name="System Bold Italic" size="18.0"/>
+            </font>
+        </Label>
+        <Text fx:id="balanceText" disable="true" fill="#6811f7" fontSmoothingType="LCD" layoutX="246.0" layoutY="173.0"
+              strokeType="OUTSIDE" strokeWidth="0.0" text="00" textAlignment="CENTER" underline="true"
+              wrappingWidth="180.01200103759766" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <font>
+                <Font name="System Italic" size="34.0"/>
+            </font>
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+        </Text>
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#handleConfirm"
+                   prefHeight="65.0" prefWidth="98.0" ripplerFill="#4a5157" styleClass="setup-button"
+                   stylesheets="@../main.css" text="Confirm" underline="true" GridPane.columnIndex="1"
+                   GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets left="40.0"/>
+            </GridPane.margin>
+            <graphic>
+                <FontAwesomeIconView fill="#d31212" glyphName="CHECK_SQUARE_ALT" size="40"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="236.0" layoutY="324.0"
+                   onAction="#handleCancel" prefHeight="65.0" prefWidth="98.0" ripplerFill="#4a5157"
+                   styleClass="setup-button" stylesheets="@../main.css" text="Cancel" underline="true"
+                   GridPane.rowIndex="3">
+            <graphic>
+                <FontAwesomeIconView fill="#d31212" glyphName="WARNING" size="40" text=""/>
+            </graphic>
+            <GridPane.margin>
+                <Insets left="40.0"/>
+            </GridPane.margin>
+        </JFXButton>
+    </children>
 </GridPane>

@@ -9,36 +9,46 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="457.0" stylesheets="@../../resources/common.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmaceuticals.assistant.ui.login.LoginController">
-   <children>
-      <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="56.0" prefWidth="446.0" style="-fx-text-fill: white; -fx-background-color: black;" text="Sales Assistant Login" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Label>
-      <JFXTextField fx:id="loginUserName" alignment="CENTER" labelFloat="true" layoutX="96.0" layoutY="88.0" prefHeight="28.0" prefWidth="241.0" promptText="UserName">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </JFXTextField>
-      <JFXPasswordField fx:id="loginPassword" alignment="CENTER" labelFloat="true" layoutX="97.0" layoutY="163.0" onAction="#handleLogin" prefHeight="31.0" prefWidth="241.0" promptText="Password">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </JFXPasswordField>
-      <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="43.0" layoutY="219.0" onAction="#handleLogin" onMouseDragged="#testEnter" prefHeight="73.0" prefWidth="124.0" style="-fx-background-color: lightblue;" text="Login">
-         <graphic>
-            <MaterialDesignIconView fill="#2bd312" glyphName="LOGIN" size="40" />
-         </graphic>
-      </JFXButton>
-      <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="275.0" layoutY="219.0" onAction="#handleLogout" prefHeight="73.0" prefWidth="124.0" style="-fx-background-color: lightblue;" text="Cancel">
-         <graphic>
-            <Icons525View fill="#e42615" glyphName="CANCEL" size="40" />
-         </graphic>
-      </JFXButton>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="300.0" prefWidth="457.0" stylesheets="@../../resources/common.css"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="pharmaceuticals.assistant.ui.login.LoginController">
+    <children>
+        <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0"
+               prefHeight="56.0" prefWidth="446.0" style="-fx-text-fill: white; -fx-background-color: black;"
+               text="Sales Assistant Login" textAlignment="CENTER" AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <font>
+                <Font size="28.0"/>
+            </font>
+        </Label>
+        <JFXTextField fx:id="loginUserName" alignment="CENTER" labelFloat="true" layoutX="96.0" layoutY="88.0"
+                      prefHeight="28.0" prefWidth="241.0" promptText="UserName">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </JFXTextField>
+        <JFXPasswordField fx:id="loginPassword" alignment="CENTER" labelFloat="true" layoutX="97.0" layoutY="163.0"
+                          onAction="#handleLogin" prefHeight="31.0" prefWidth="241.0" promptText="Password">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </JFXPasswordField>
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="43.0" layoutY="219.0"
+                   onAction="#handleLogin" prefHeight="73.0" prefWidth="124.0" style="-fx-background-color: lightblue;"
+                   text="Login">
+            <graphic>
+                <MaterialDesignIconView fill="#2bd312" glyphName="LOGIN" size="40"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" layoutX="275.0" layoutY="219.0"
+                   onAction="#handleLogout" prefHeight="73.0" prefWidth="124.0" style="-fx-background-color: lightblue;"
+                   text="Cancel">
+            <graphic>
+                <Icons525View fill="#e42615" glyphName="CANCEL" size="40"/>
+            </graphic>
+        </JFXButton>
+    </children>
 </AnchorPane>
