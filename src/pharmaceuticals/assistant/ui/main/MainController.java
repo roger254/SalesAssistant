@@ -142,7 +142,7 @@ public class MainController implements Initializable
         JFXDepthManager.setDepth(medicineInfo, 1);
         //   JFXDepthManager.setDepth(checkOutButton, 1);
         handler = DatabaseHandler.getInstance();
-        medicineHandler = new MedicineHandler(this);
+        medicineHandler = MedicineHandler.getInstance();
 
         //restrict access
         updateItemTab.setDisable(isRestricted);
@@ -198,7 +198,7 @@ public class MainController implements Initializable
         {
             MedicineItem item = loadMedicineInfo();
             int quantityToSell = quantityPrompt(item != null ? item.getMedicineName() : null, Objects.requireNonNull(item).getMedicineQuantity());
-            MedicineHandler.getCheckOutList().add(item.addToCheckOut(quantityToSell));
+            MedicineHandler.addItemToCheckOut(item,quantityToSell);
         }
         setMiniCheckOutTable();
     }
@@ -570,6 +570,7 @@ public class MainController implements Initializable
 
     public void removeAllFromCheckOut()
     {
+        MedicineHandler.finalizeSelling(false);
         MedicineHandler.emptyCheckOut();
         setMiniCheckOutTable();
     }

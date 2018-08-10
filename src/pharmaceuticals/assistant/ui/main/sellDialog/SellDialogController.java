@@ -53,7 +53,6 @@ public class SellDialogController implements Initializable
     @FXML
     private void handleCancel()
     {
-        MedicineHandler.finalizeSelling(false);
         ((Stage) amountPaidInput.getScene().getWindow()).close();
     }
 

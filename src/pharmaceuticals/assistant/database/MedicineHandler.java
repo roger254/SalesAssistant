@@ -3,11 +3,9 @@ package pharmaceuticals.assistant.database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import pharmaceuticals.assistant.ui.login.LoginController;
-import pharmaceuticals.assistant.ui.main.MainController;
 
 public class MedicineHandler
 {
-    private  MainController mainController;
     private static MedicineHandler medicineHandler = null;
     private static ObservableList<MedicineItem> medicineItems = FXCollections.observableArrayList();
     private static ObservableList<MedicineItem> checkOutList = FXCollections.observableArrayList();
@@ -16,14 +14,8 @@ public class MedicineHandler
     private MedicineHandler()
     {
         DatabaseHandler.getInstance();
-        medicineItems =  DatabaseHandler.LoadMedicineItems();
+        medicineItems = DatabaseHandler.LoadMedicineItems();
         sellList = DatabaseHandler.LoadSoldList();
-    }
-
-    public MedicineHandler(MainController mainController)
-    {
-        this.mainController = mainController;
-        MedicineHandler.getInstance();
     }
 
     public static MedicineHandler getInstance()
@@ -38,40 +30,24 @@ public class MedicineHandler
         checkOutList.clear();
     }
 
-    public static void addItemToCheckOut(MedicineItem item)
+    public static void addItemToCheckOut(MedicineItem item, int quantityToSell)
     {
-        if (checkOutList.size() > 0)
-        {
-            for (MedicineItem medicineItem: checkOutList)
-            {
-                if (medicineItem.equals(item))
-                {
-                    medicineItem.setQuantityToSell(item.getPreviousQuantity());
-                }
-            }
-        }
         boolean isFound = false;
         if (checkOutList.size() > 0)
         {
             for (MedicineItem medicineItem : checkOutList)
             {
-                if (medicineItem.getMedicineName().equals(item.getMedicineName()))
+                if (medicineItem.checkOutEquals(item))
                 {
-                    medicineItem.setQuantityToSell(medicineItem.getQuantityToSell() + item.getQuantityToSell());
-                    updateItemQuantity(item);
+                    medicineItem.setQuantityToSell(medicineItem.getQuantityToSell() + quantityToSell);
+                    item.setMedicineQuantity(item.getMedicineQuantity() - quantityToSell);
                     isFound = true;
                 }
             }
-            if (!isFound)
-            {
-                checkOutList.add(item);
-                updateItemQuantity(item);
-            }
-        } else
-        {
-            checkOutList.add(item);
-            updateItemQuantity(item);
         }
+        if (!isFound)
+            checkOutList.add(item.addToCheckOut(quantityToSell));
+
     }
 
     private static void updateItemQuantity(MedicineItem item)
@@ -93,39 +69,29 @@ public class MedicineHandler
     {
         if (checkOutList.size() > 0)
         {
-            ItemLoop:
-            for (MedicineItem itemList : medicineItems)
+            for (MedicineItem checkOutItem : checkOutList)
             {
-                for (MedicineItem checkOutListItem : checkOutList)
+                for (MedicineItem medicineItem : medicineItems)
                 {
-                    if (itemList.getMedicineName().equals(checkOutListItem.getMedicineName()))
+                    if (finalized)
                     {
-                        if (finalized)
+                        if (medicineItem.checkOutEquals(checkOutItem))
                         {
-                            itemList.setQuantityToSell(0);
-                            itemList.setPreviousQuantity(0);
-
-                            //add too sell list
-                            checkOutListItem.setMedicineQuantity(checkOutListItem.getQuantityToSell());
-                            sellList.add(new MedicineItem.SoldItem(LoginController.getCurrentUser(), checkOutListItem));
-                            System.out.println("Added to sellList");
-                            break ItemLoop;
-                        } else
-                        {
-                            itemList.setMedicineQuantity(itemList.getMedicineQuantity() + itemList.getQuantityToSell());
-                            itemList.setQuantityToSell(0);
-                            itemList.setPreviousQuantity(0);
+                            medicineItem.setPreviousQuantity(0);
+                            medicineItem.setQuantityToSell(0);
+                            break;
                         }
+                    }else
+                    {
+                        medicineItem.setMedicineQuantity(medicineItem.getPreviousQuantity());
+                        medicineItem.setPreviousQuantity(0);
+                        medicineItem.setQuantityToSell(0);
                     }
                 }
             }
-            if (finalized)
-            {
-                checkOutList.clear();
-                System.out.println("Cleared");
-               // medicineHandler.mainController.reloadMiniTable();
-            }
+            checkOutList.clear();
         }
+
     }
 
     public static ObservableList<MedicineItem> getMedicineItems()
