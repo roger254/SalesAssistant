@@ -2,18 +2,20 @@ package pharmaceuticals.assistant.database;
 
 import javafx.beans.property.*;
 
+import java.io.*;
 import java.util.Date;
 import java.util.Objects;
 
-public class MedicineItem
+public class MedicineItem implements Serializable
 {
-    private final SimpleStringProperty medicineName;
-    private final SimpleIntegerProperty medicineQuantity;
-    private final SimpleDoubleProperty medicinePrice;
-    private final SimpleStringProperty medicineDescription;
-    private final ObjectProperty<Date> medicineEntryDate;
-    private final SimpleBooleanProperty medicineAvailability;
-    private final SimpleIntegerProperty quantityToSell;
+
+    private transient SimpleStringProperty medicineName;
+    private transient SimpleIntegerProperty medicineQuantity;
+    private transient SimpleDoubleProperty medicinePrice;
+    private transient SimpleStringProperty medicineDescription;
+    private transient ObjectProperty<Date> medicineEntryDate;
+    private transient SimpleBooleanProperty medicineAvailability;
+    private transient SimpleIntegerProperty quantityToSell;
     private int previousQuantity = 0;
 
     public MedicineItem()
@@ -55,6 +57,17 @@ public class MedicineItem
         this.medicineAvailability = new SimpleBooleanProperty(getMedicineAvailability());
     }
 
+    public MedicineItem(String medicineName, int medicineQuantity, double medicinePrice, Date date)
+    {
+        this.medicineName = new SimpleStringProperty(medicineName);
+        this.medicineQuantity = new SimpleIntegerProperty(medicineQuantity);
+        this.medicinePrice = new SimpleDoubleProperty(medicinePrice);
+        this.medicineDescription = new SimpleStringProperty("");
+        this.quantityToSell = new SimpleIntegerProperty(0);
+        this.medicineEntryDate = new SimpleObjectProperty<>(date);
+        this.medicineAvailability = new SimpleBooleanProperty(getMedicineAvailability());
+    }
+
     public MedicineItem(String medicineName, int medicineQuantity, double medicinePrice, String medicineDescription)
     {
         this.medicineName = new SimpleStringProperty(medicineName);
@@ -62,19 +75,6 @@ public class MedicineItem
         this.medicinePrice = new SimpleDoubleProperty(medicinePrice);
         this.medicineDescription = new SimpleStringProperty(medicineDescription);
         this.quantityToSell = new SimpleIntegerProperty(0);
-        long millis = System.currentTimeMillis();
-        Date today = new Date(millis);
-        this.medicineEntryDate = new SimpleObjectProperty<>(today);
-        this.medicineAvailability = new SimpleBooleanProperty(getMedicineAvailability());
-    }
-
-    public MedicineItem(String medicineName, int medicineQuantity, double medicinePrice, String medicineDescription, int quantityToSell)
-    {
-        this.medicineName = new SimpleStringProperty(medicineName);
-        this.medicineQuantity = new SimpleIntegerProperty(medicineQuantity);
-        this.medicinePrice = new SimpleDoubleProperty(medicinePrice);
-        this.medicineDescription = new SimpleStringProperty(medicineDescription);
-        this.quantityToSell = new SimpleIntegerProperty(quantityToSell);
         long millis = System.currentTimeMillis();
         Date today = new Date(millis);
         this.medicineEntryDate = new SimpleObjectProperty<>(today);
@@ -92,47 +92,61 @@ public class MedicineItem
         this.medicineAvailability = new SimpleBooleanProperty(getMedicineAvailability());
     }
 
-    public String getMedicineName()
+
+    public MedicineItem(String medicineName, int medicineQuantity, double medicinePrice, String medicineDescription, int quantityToSell)
+    {
+        this.medicineName = new SimpleStringProperty(medicineName);
+        this.medicineQuantity = new SimpleIntegerProperty(medicineQuantity);
+        this.medicinePrice = new SimpleDoubleProperty(medicinePrice);
+        this.medicineDescription = new SimpleStringProperty(medicineDescription);
+        this.quantityToSell = new SimpleIntegerProperty(quantityToSell);
+        long millis = System.currentTimeMillis();
+        Date today = new Date(millis);
+        this.medicineEntryDate = new SimpleObjectProperty<>(today);
+        this.medicineAvailability = new SimpleBooleanProperty(getMedicineAvailability());
+    }
+
+    public final String getMedicineName()
     {
         return medicineName.get();
     }
 
-    public void setMedicineName(String medicineName)
+    public final void setMedicineName(String medicineName)
     {
         this.medicineName.set(medicineName);
     }
 
-    public Integer getMedicineQuantity()
+    public final Integer getMedicineQuantity()
     {
         return medicineQuantity.get();
     }
 
-    public void setMedicineQuantity(int quantity)
+    public final void setMedicineQuantity(int quantity)
     {
         this.medicineQuantity.set(quantity);
     }
 
-    public Double getMedicinePrice()
+    public final Double getMedicinePrice()
     {
         return medicinePrice.get();
     }
 
-    public void setMedicinePrice(double price)
+    public final void setMedicinePrice(double price)
     {
         this.medicinePrice.set(price);
     }
 
-    public String getMedicineDescription()
+    public final String getMedicineDescription()
     {
         return medicineDescription.get();
     }
 
-    public Date getMedicineEntryDate()
+    public final Date getMedicineEntryDate()
     {
         return medicineEntryDate.get();
     }
 
-    public Boolean getMedicineAvailability()
+    public final Boolean getMedicineAvailability()
     {
         return medicineQuantity.get() > 0;
     }
@@ -166,32 +180,32 @@ public class MedicineItem
         return Objects.equals(this.medicinePrice, other.medicinePrice);
     }
 
-    public void setEntryDate(Date date)
+    public final void setEntryDate(Date date)
     {
         this.medicineEntryDate.set(date);
     }
 
-    public int getPreviousQuantity()
+    public final int getPreviousQuantity()
     {
         return previousQuantity;
     }
 
-    public void setPreviousQuantity(int previousQuantity)
+    public final void setPreviousQuantity(int previousQuantity)
     {
         this.previousQuantity = previousQuantity;
     }
 
-    public Integer getQuantityToSell()
+    public final Integer getQuantityToSell()
     {
         return quantityToSell.get();
     }
 
-    public void setQuantityToSell(int quantityToSell)
+    public final void setQuantityToSell(int quantityToSell)
     {
         this.quantityToSell.set(quantityToSell);
     }
 
-    static class SoldItem
+    static class SoldItem extends MedicineItem
     {
         private String userName;
         private String itemName;
@@ -266,5 +280,87 @@ public class MedicineItem
         {
             this.checkOutDate = checkOutDate;
         }
+
+        public void switchQuantities(boolean isSold)
+        {
+            if (isSold)
+            {
+
+            }
+        }
     }
+
+   public MedicineItem addToCheckOut(int quantityToSell)
+    {
+        this.quantityToSell.set(quantityToSell);
+        int previousQuantity = this.medicineQuantity.get();
+        int newQuantity = previousQuantity - this.quantityToSell.get();
+        setMedicineQuantity(newQuantity);
+        return checkOutClone(this);
+    }
+
+    void confirmSell(boolean confirm)
+    {
+        if (confirm)
+        {
+            this.previousQuantity = 0;
+            this.quantityToSell.set(0);
+        }
+        else
+        {
+            this.medicineQuantity.set(previousQuantity);
+            this.previousQuantity = 0;
+            this.quantityToSell.set(0);
+        }
+    }
+
+    private  MedicineItem checkOutClone(MedicineItem object)
+    {
+        return new MedicineItem(medicineName.get(),medicineQuantity.get(),medicinePrice.get(),medicineDescription.get(),quantityToSell.get());
+    }
+
+    private void writeObject(ObjectOutputStream o) throws IOException
+    {
+        /**
+         * private transient SimpleStringProperty medicineName;
+         *     private transient SimpleIntegerProperty medicineQuantity;
+         *     private transient SimpleDoubleProperty medicinePrice;
+         *     private transient SimpleStringProperty medicineDescription;
+         *     private transient ObjectProperty<Date> medicineEntryDate;
+         *     private transient SimpleBooleanProperty medicineAvailability;
+         *     private transient SimpleIntegerProperty quantityToSell;
+         *     private int previousQuantity = 0;
+         */
+        o.defaultWriteObject();
+        o.writeUTF(getMedicineName());
+        o.writeInt(getMedicineQuantity());
+        o.writeDouble(getMedicinePrice());
+        o.writeUTF(getMedicineDescription());
+        o.writeObject(getMedicineEntryDate());
+        o.writeBoolean(getMedicineAvailability());
+        o.writeInt(getQuantityToSell());
+    }
+
+    private void readObject(ObjectInputStream i) throws IOException, ClassNotFoundException
+    {
+        /*
+        rivate transient SimpleStringProperty medicineName;
+    private transient SimpleIntegerProperty medicineQuantity;
+    private transient SimpleDoubleProperty medicinePrice;
+    private transient SimpleStringProperty medicineDescription;
+    private transient ObjectProperty<Date> medicineEntryDate;
+    private transient SimpleBooleanProperty medicineAvailability;
+    private transient SimpleIntegerProperty quantityToSell;
+    private int previousQuantity = 0;
+         */
+        medicineName = new SimpleStringProperty(i.readUTF());
+        medicineQuantity = new SimpleIntegerProperty(i.readInt());
+        medicinePrice = new SimpleDoubleProperty(i.readDouble());
+        medicineDescription = new SimpleStringProperty(i.readUTF());
+        medicineEntryDate = new SimpleObjectProperty<>((Date) i.readObject());
+        medicineAvailability = new SimpleBooleanProperty(i.readBoolean());
+        quantityToSell = new SimpleIntegerProperty(i.readInt());
+    }
+
+
 }

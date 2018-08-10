@@ -2,18 +2,12 @@ package pharmaceuticals.assistant.database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import pharmaceuticals.assistant.ui.addItem.AddItemController;
 import pharmaceuticals.assistant.ui.login.LoginController;
-import sun.rmi.runtime.Log;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import pharmaceuticals.assistant.ui.main.MainController;
 
 public class MedicineHandler
 {
+    private  MainController mainController;
     private static MedicineHandler medicineHandler = null;
     private static ObservableList<MedicineItem> medicineItems = FXCollections.observableArrayList();
     private static ObservableList<MedicineItem> checkOutList = FXCollections.observableArrayList();
@@ -22,8 +16,14 @@ public class MedicineHandler
     private MedicineHandler()
     {
         DatabaseHandler.getInstance();
-        checkOutList.add(DatabaseHandler.fillMedicineItems());
-        sellList.add(DatabaseHandler.fillSoldList());
+        medicineItems =  DatabaseHandler.LoadMedicineItems();
+        sellList = DatabaseHandler.LoadSoldList();
+    }
+
+    public MedicineHandler(MainController mainController)
+    {
+        this.mainController = mainController;
+        MedicineHandler.getInstance();
     }
 
     public static MedicineHandler getInstance()
@@ -40,6 +40,16 @@ public class MedicineHandler
 
     public static void addItemToCheckOut(MedicineItem item)
     {
+        if (checkOutList.size() > 0)
+        {
+            for (MedicineItem medicineItem: checkOutList)
+            {
+                if (medicineItem.equals(item))
+                {
+                    medicineItem.setQuantityToSell(item.getPreviousQuantity());
+                }
+            }
+        }
         boolean isFound = false;
         if (checkOutList.size() > 0)
         {
@@ -83,6 +93,7 @@ public class MedicineHandler
     {
         if (checkOutList.size() > 0)
         {
+            ItemLoop:
             for (MedicineItem itemList : medicineItems)
             {
                 for (MedicineItem checkOutListItem : checkOutList)
@@ -98,9 +109,10 @@ public class MedicineHandler
                             checkOutListItem.setMedicineQuantity(checkOutListItem.getQuantityToSell());
                             sellList.add(new MedicineItem.SoldItem(LoginController.getCurrentUser(), checkOutListItem));
                             System.out.println("Added to sellList");
+                            break ItemLoop;
                         } else
                         {
-                            itemList.setQuantityToSell(itemList.getPreviousQuantity());
+                            itemList.setMedicineQuantity(itemList.getMedicineQuantity() + itemList.getQuantityToSell());
                             itemList.setQuantityToSell(0);
                             itemList.setPreviousQuantity(0);
                         }
@@ -111,6 +123,7 @@ public class MedicineHandler
             {
                 checkOutList.clear();
                 System.out.println("Cleared");
+               // medicineHandler.mainController.reloadMiniTable();
             }
         }
     }

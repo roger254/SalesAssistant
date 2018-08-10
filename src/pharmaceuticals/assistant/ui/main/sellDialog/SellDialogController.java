@@ -26,6 +26,10 @@ public class SellDialogController implements Initializable
     @FXML
     private Text balanceText;
 
+    private boolean confirmedSale = false;
+
+    private  MainController mainController;
+
     /**
      * Initializes the controller class.
      */
@@ -38,6 +42,11 @@ public class SellDialogController implements Initializable
     @FXML
     private void handleConfirm()
     {
+        if (confirmedSale)
+        {
+            MedicineHandler.finalizeSelling(true);
+            mainController.reloadMiniTable();
+        }
         ((Stage) amountPaidInput.getScene().getWindow()).close();
     }
 
@@ -54,8 +63,12 @@ public class SellDialogController implements Initializable
         Double amountPaid = Double.parseDouble(amountPaidInput.getText());
         Double balance = amountPaid - totalAmount;
         balanceText.setText(String.valueOf(balance));
-        MedicineHandler.finalizeSelling(balance > 0);
+        confirmedSale = balance > 0;
     }
 
 
+    public void setMain(MainController mainController)
+    {
+        this.mainController = mainController;
+    }
 }

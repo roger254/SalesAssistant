@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.effects.JFXDepthManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +22,7 @@ import pharmaceuticals.assistant.database.DatabaseHandler;
 import pharmaceuticals.assistant.database.MedicineHandler;
 import pharmaceuticals.assistant.database.MedicineItem;
 import pharmaceuticals.assistant.ui.login.LoginController;
+import pharmaceuticals.assistant.ui.main.sellDialog.SellDialogController;
 import pharmaceuticals.assistant.ui.main.utils.EditableTable;
 import pharmaceuticals.assistant.util.SalesAssistantUtil;
 
@@ -31,6 +31,7 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -141,7 +142,7 @@ public class MainController implements Initializable
         JFXDepthManager.setDepth(medicineInfo, 1);
         //   JFXDepthManager.setDepth(checkOutButton, 1);
         handler = DatabaseHandler.getInstance();
-        medicineHandler = MedicineHandler.getInstance();
+        medicineHandler = new MedicineHandler(this);
 
         //restrict access
         updateItemTab.setDisable(isRestricted);
@@ -195,12 +196,9 @@ public class MainController implements Initializable
     {
         if (isFound)
         {
-            String medicineName = medicineNameText.getText();
-            String medicinePrice = medicinePriceText.getText();
-            String medicineQuantity = medicineQuantityText.getText();
-            String medicineDescription = medicineDescriptionText.getText();
-            int quantityToSell = quantityPrompt(medicineName, Integer.parseInt(medicineQuantity));
-            MedicineHandler.addItemToCheckOut(new MedicineItem(medicineName, Integer.parseInt(medicineQuantity), Double.parseDouble(medicinePrice), medicineDescription, quantityToSell));
+            MedicineItem item = loadMedicineInfo();
+            int quantityToSell = quantityPrompt(item != null ? item.getMedicineName() : null, Objects.requireNonNull(item).getMedicineQuantity());
+            MedicineHandler.getCheckOutList().add(item.addToCheckOut(quantityToSell));
         }
         setMiniCheckOutTable();
     }
@@ -251,7 +249,7 @@ public class MainController implements Initializable
     }
 
     @FXML
-    private void loadMedicineInfo()
+    private MedicineItem loadMedicineInfo()
     {
         //get search input
         String medicineSearchName = medicineNameInput.getText();
@@ -262,22 +260,41 @@ public class MainController implements Initializable
         {
             if (item.getMedicineName().equals(medicineSearchName))
             {
-                String medicineName = item.getMedicineName();
-                Double medicinePrice = item.getMedicinePrice();
-                int medicineQuantity = item.getMedicineQuantity();
-                String medicineDescription = item.getMedicineDescription();
-                Date medicineEntryDate = item.getMedicineEntryDate();
-
                 //display details
-                displayMedicineDetails(medicineName, medicinePrice, medicineQuantity, medicineDescription, medicineEntryDate);
+                displayMedicineDetails(item);
                 isFound = true;
+                return item;
             }
         }
 
         //if not details, send null
         if (!isFound)
-            displayMedicineDetails(null, null, 0, null, null);
+            displayMedicineDetails(null);
 
+        return null;
+    }
+//display medicine details after search
+
+    private void displayMedicineDetails(MedicineItem item)
+    {
+        if (item == null)
+        {
+            medicineNameText.setText("N/A");
+            medicinePriceText.setText("N/A");
+            medicineQuantityText.setText("N/A");
+            medicineDescriptionText.setText("N/A");
+            medicineEntryDateText.setText("N/A");
+            medicineAvailabilityText.setText("Not available");
+        } else
+        {
+            medicineNameText.setText(item.getMedicineName());
+            medicinePriceText.setText(String.valueOf(item.getMedicinePrice()));
+            medicineQuantityText.setText(String.valueOf(item.getMedicineQuantity()));
+            medicineDescriptionText.setText(item.getMedicineDescription());
+            medicineEntryDateText.setText(item.getMedicineEntryDate().toString());
+            boolean flag = item.getMedicineQuantity() > 0;
+            medicineAvailabilityText.setText(flag ? "Available" : "Not available");
+        }
     }
 
     @FXML
@@ -502,30 +519,6 @@ public class MainController implements Initializable
         return quantity;
     }
 
-    //display medicine details after search
-    private void displayMedicineDetails(String medicineName, Double medicinePrice, int medicineQuantity, String medicineDescription, Date medicineEntryDate)
-    {
-        if (medicineName == null || medicineName.isEmpty())
-        {
-            medicineNameText.setText("N/A");
-            medicinePriceText.setText("N/A");
-            medicineQuantityText.setText("N/A");
-            medicineDescriptionText.setText("N/A");
-            medicineEntryDateText.setText("N/A");
-            medicineAvailabilityText.setText("Not available");
-        } else
-        {
-            medicineNameText.setText(medicineName);
-            medicinePriceText.setText(medicinePrice.toString());
-            medicineQuantityText.setText(String.valueOf(medicineQuantity));
-            medicineDescriptionText.setText(medicineDescription);
-            medicineEntryDateText.setText(medicineEntryDate.toString());
-            boolean flag = medicineQuantity > 0;
-            medicineAvailabilityText.setText(flag ? "Available" : "Not available");
-//            checkOutButton.setDisable(!flag);
-        }
-    }
-
     //add items to checkout list
     private void addToCheckOut(String medicineName, int quantityToSell, int previousMedicineQuantity, Double medicinePrice)
     {
@@ -584,7 +577,30 @@ public class MainController implements Initializable
     @FXML
     private void pushToSell()
     {
-        loadWindow("/pharmaceuticals/assistant/ui/main/sellDialog/sellDialog.fxml", "Sell Confirmation");
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/pharmaceuticals/assistant/ui/main/sellDialog/sellDialog.fxml"));
+            Parent parent = loader.load();
+          //  Parent parent = FXMLLoader.load(getClass().getResource("/pharmaceuticals/assistant/ui/main/sellDialog/sellDialog.fxml"));
+
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle("Sell Confirmation");
+            SellDialogController sellDialogController = loader.getController();
+            sellDialogController.setMain(this);
+            stage.setScene(new Scene(parent));
+            stage.show();
+            //set the icon
+            SalesAssistantUtil.setStageIcon(stage);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        setMiniCheckOutTable();
+    }
+
+    public void reloadMiniTable()
+    {
         setMiniCheckOutTable();
     }
 }

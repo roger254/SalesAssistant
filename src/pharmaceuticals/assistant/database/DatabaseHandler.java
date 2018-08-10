@@ -1,6 +1,8 @@
 package pharmaceuticals.assistant.database;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import pharmaceuticals.assistant.ui.addItem.AddItemController;
 import pharmaceuticals.assistant.ui.login.LoginController;
 
@@ -198,6 +200,10 @@ public final class DatabaseHandler
         }
     }
 
+    /*
+    Deletes the selected item from the database
+     */
+
     public boolean deleteItem(MedicineItem item)
     {
         try
@@ -214,8 +220,13 @@ public final class DatabaseHandler
         return false;
     }
 
-    public static MedicineItem fillMedicineItems()
+    /*
+    Retrieve all current medicine data in stock
+     */
+
+    public static ObservableList<MedicineItem> LoadMedicineItems()
     {
+        ObservableList<MedicineItem> medicineItems = FXCollections.observableArrayList();
         String qu = "SELECT * FROM MEDICINE_ITEMS_TABLE";
         ResultSet result = handler.executeQuery(qu);
         try
@@ -230,41 +241,54 @@ public final class DatabaseHandler
                 double medicinePrice = result.getDouble("price");
                 int medicineQuantity = result.getInt("quantity");
 
-                return (new MedicineItem(medicineName, medicineQuantity, medicinePrice, medicineDescription, medicineEntryDate));
+                medicineItems.add(new MedicineItem(medicineName, medicineQuantity, medicinePrice, medicineDescription, medicineEntryDate));
             }
         } catch (SQLException ex)
         {
             Logger.getLogger(AddItemController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return medicineItems;
     }
 
-    public static MedicineItem.SoldItem fillSoldList()
+    /*
+    Retrieve sold items data from the database
+     */
+
+    public static ObservableList<MedicineItem.SoldItem> LoadSoldList()
     {
+        ObservableList<MedicineItem.SoldItem> soldItems = FXCollections.observableArrayList();
         String qu = "SELECT * FROM SOLD_ITEMS_TABLE";
         ResultSet result = handler.executeQuery(qu);
         try
         {
             while (result != null && result.next())
             {
-                String medicineName = result.getString("name");
-                Date medicineEntryDate = result.getDate("entryDate");
-                double medicinePrice = result.getDouble("price");
-                int medicineQuantity = result.getInt("quantity");
+                String medicineName = result.getString("medicineName");
+                Date medicineEntryDate = result.getDate("soldTime");
+                double medicinePrice = result.getDouble("medicinePrice");
+                int medicineQuantity = result.getInt("medicineQuantity");
 
-                return (new MedicineItem.SoldItem(LoginController.getCurrentUser(), medicineName, medicinePrice, medicineQuantity, medicineEntryDate));
+                soldItems.add(new MedicineItem.SoldItem(LoginController.getCurrentUser(), medicineName, medicinePrice, medicineQuantity, medicineEntryDate));
             }
         } catch (SQLException ex)
         {
             Logger.getLogger(AddItemController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return soldItems;
     }
-    private void handleSell()
+
+    /*
+    TODO: Create individual tables for all users
+    TODO: Update each sell to the current user
+     */
+
+    public static void handleSell()
     {
+        ObservableList<MedicineItem.SoldItem> soldItemsList = MedicineHandler.getSellList();
         ResultSet result;
         boolean flag;
-        for (MedicineItem.SoldItem soldItem : MedicineHandler.getSellList())
+
+        for (MedicineItem.SoldItem soldItem : soldItemsList)
         {
             String itemsName = soldItem.getItemName();
             //check if item is in SOLD TABLE
@@ -276,9 +300,10 @@ public final class DatabaseHandler
             {
                 if (result != null && result.next())
                 {
-                    //updateQuantity if it is
+                    //update Quantity
                     int databaseQuantity = result.getInt("medicineQuantity");
-                    soldItemQuery = "UPDATE SOLD_ITEMS_TABLE SET medicineQuantity = " + (soldItem.getItemQuantity() + databaseQuantity) + " WHERE medicineName ='" + itemsName + "'";
+                  //  if(databaseQuantity!= soldItem.getItemQuantity())
+                        soldItemQuery = "UPDATE SOLD_ITEMS_TABLE SET medicineQuantity = " + (soldItem.getItemQuantity() + databaseQuantity) + " WHERE medicineName ='" + itemsName + "'";
 
                 } else
                 {
@@ -294,7 +319,7 @@ public final class DatabaseHandler
             {
                 e.printStackTrace();
             }
-            flag =handler.execAction(soldItemQuery);
+            flag = handler.execAction(soldItemQuery);
             if (flag)
                 MedicineHandler.getSellList().clear();
         }
