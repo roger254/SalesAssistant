@@ -254,9 +254,9 @@ public final class DatabaseHandler
     Retrieve sold items data from the database
      */
 
-    public static ObservableList<MedicineItem.SoldItem> LoadSoldList()
+    public static ObservableList<MedicineItem> LoadSoldList()
     {
-        ObservableList<MedicineItem.SoldItem> soldItems = FXCollections.observableArrayList();
+        ObservableList<MedicineItem> soldItems = FXCollections.observableArrayList();
         String qu = "SELECT * FROM SOLD_ITEMS_TABLE";
         ResultSet result = handler.executeQuery(qu);
         try
@@ -268,7 +268,7 @@ public final class DatabaseHandler
                 double medicinePrice = result.getDouble("medicinePrice");
                 int medicineQuantity = result.getInt("medicineQuantity");
 
-                soldItems.add(new MedicineItem.SoldItem(LoginController.getCurrentUser(), medicineName, medicinePrice, medicineQuantity, medicineEntryDate));
+                soldItems.add(new MedicineItem(medicineName, medicineQuantity, medicinePrice, medicineEntryDate));
             }
         } catch (SQLException ex)
         {
@@ -284,13 +284,13 @@ public final class DatabaseHandler
 
     public static void handleSell()
     {
-        ObservableList<MedicineItem.SoldItem> soldItemsList = MedicineHandler.getSellList();
+        ObservableList<MedicineItem> soldItemsList = MedicineHandler.getSellList();
         ResultSet result;
         boolean flag;
 
-        for (MedicineItem.SoldItem soldItem : soldItemsList)
+        for (MedicineItem soldItem : soldItemsList)
         {
-            String itemsName = soldItem.getItemName();
+            String itemsName = soldItem.getMedicineName();
             //check if item is in SOLD TABLE
             String checkQuery = "SELECT * FROM SOLD_ITEMS_TABLE WHERE medicineName ='" + itemsName + "'";
             result = handler.executeQuery(checkQuery);
@@ -303,16 +303,16 @@ public final class DatabaseHandler
                     //update Quantity
                     int databaseQuantity = result.getInt("medicineQuantity");
                   //  if(databaseQuantity!= soldItem.getItemQuantity())
-                        soldItemQuery = "UPDATE SOLD_ITEMS_TABLE SET medicineQuantity = " + (soldItem.getItemQuantity() + databaseQuantity) + " WHERE medicineName ='" + itemsName + "'";
+                        soldItemQuery = "UPDATE SOLD_ITEMS_TABLE SET medicineQuantity = " + (soldItem.getMedicineQuantity() + databaseQuantity) + " WHERE medicineName ='" + itemsName + "'";
 
                 } else
                 {
                     //if not add to sell data
                     soldItemQuery = "INSERT INTO SOLD_ITEMS_TABLE(userName,medicineName,medicinePrice,medicineQuantity) VALUES("
                             + "'" + LoginController.getCurrentUser() + "',"
-                            + "'" + soldItem.getItemName() + "',"
-                            + "" + soldItem.getItemPrice() + ","
-                            + "" + soldItem.getItemQuantity() + ""
+                            + "'" + soldItem.getMedicineName() + "',"
+                            + "" + soldItem.getMedicinePrice() + ","
+                            + "" + soldItem.getMedicineQuantity() + ""
                             + ")";
                 }
             } catch (SQLException e)

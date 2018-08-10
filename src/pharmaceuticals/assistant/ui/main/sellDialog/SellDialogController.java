@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import pharmaceuticals.assistant.database.MedicineHandler;
+import pharmaceuticals.assistant.database.MedicineItem;
 import pharmaceuticals.assistant.ui.main.MainController;
 
 import java.net.URL;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
  */
 public class SellDialogController implements Initializable
 {
-    private final Double totalAmount = MainController.getTotalAmount();
+    private final Double totalAmount = getItemsTotal();
     @FXML
     private JFXTextField amountPaidInput;
     @FXML
@@ -28,7 +29,7 @@ public class SellDialogController implements Initializable
 
     private boolean confirmedSale = false;
 
-    private  MainController mainController;
+    private MainController mainController;
 
     /**
      * Initializes the controller class.
@@ -65,6 +66,15 @@ public class SellDialogController implements Initializable
         confirmedSale = balance > 0;
     }
 
+    private double getItemsTotal()
+    {
+        int total = 0;
+        for (MedicineItem item : MedicineHandler.getCheckOutList())
+        {
+             total += item.getQuantityToSell() * item.getMedicinePrice();
+        }
+        return total;
+    }
 
     public void setMain(MainController mainController)
     {

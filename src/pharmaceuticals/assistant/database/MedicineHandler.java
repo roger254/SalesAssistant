@@ -2,14 +2,13 @@ package pharmaceuticals.assistant.database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import pharmaceuticals.assistant.ui.login.LoginController;
 
 public class MedicineHandler
 {
     private static MedicineHandler medicineHandler = null;
     private static ObservableList<MedicineItem> medicineItems = FXCollections.observableArrayList();
     private static ObservableList<MedicineItem> checkOutList = FXCollections.observableArrayList();
-    private static ObservableList<MedicineItem.SoldItem> sellList = FXCollections.observableArrayList();
+    private static ObservableList<MedicineItem> sellList = FXCollections.observableArrayList();
 
     private MedicineHandler()
     {
@@ -50,21 +49,8 @@ public class MedicineHandler
 
     }
 
-    private static void updateItemQuantity(MedicineItem item)
-    {
-        if (medicineItems.size() > 0)
-        {
-            for (MedicineItem medicineItem : medicineItems)
-            {
-                if (medicineItem.getMedicineName().equals(item.getMedicineName()))
-                {
-                    medicineItem.setPreviousQuantity(medicineItem.getMedicineQuantity());
-                    medicineItem.setMedicineQuantity(medicineItem.getMedicineQuantity() - item.getQuantityToSell());
-                }
-            }
-        }
-    }
 
+    //TODO: fix concurrent modification
     public static void finalizeSelling(boolean finalized)
     {
         if (checkOutList.size() > 0)
@@ -77,8 +63,8 @@ public class MedicineHandler
                     {
                         if (medicineItem.checkOutEquals(checkOutItem))
                         {
-                            medicineItem.setPreviousQuantity(0);
-                            medicineItem.setQuantityToSell(0);
+                            medicineItem.addToSold();
+                          //  checkOutList.removeIf(p -> p.checkOutEquals(medicineItem));
                             break;
                         }
                     }else
@@ -92,6 +78,10 @@ public class MedicineHandler
             checkOutList.clear();
         }
 
+        for (MedicineItem item : sellList)
+        {
+            System.out.println(item.getMedicineName());
+        }
     }
 
     public static ObservableList<MedicineItem> getMedicineItems()
@@ -104,7 +94,7 @@ public class MedicineHandler
         return checkOutList;
     }
 
-    public static ObservableList<MedicineItem.SoldItem> getSellList()
+    public static ObservableList<MedicineItem> getSellList()
     {
         return sellList;
     }

@@ -204,92 +204,14 @@ public class MedicineItem
         this.quantityToSell.set(quantityToSell);
     }
 
-    static class SoldItem extends MedicineItem
+    void addToSold()
     {
-        private String userName;
-        private String itemName;
-        private double itemPrice;
-        private int itemQuantity;
-        private Date checkOutDate;
-
-        public SoldItem(String userName, String itemName, double itemPrice, int itemQuantity, Date checkOutDate)
-        {
-            this.userName = userName;
-            this.itemName = itemName;
-            this.itemPrice = itemPrice;
-            this.itemQuantity = itemQuantity;
-            this.checkOutDate = checkOutDate;
-        }
-
-        public SoldItem(String userName, MedicineItem item)
-        {
-            this.userName = userName;
-            this.itemName = item.getMedicineName();
-            this.itemPrice = item.getMedicinePrice();
-            this.itemQuantity = item.getMedicineQuantity();
-            this.checkOutDate = item.getMedicineEntryDate();
-        }
-
-        public String getUserName()
-        {
-            return userName;
-        }
-
-        public void setUserName(String userName)
-        {
-            this.userName = userName;
-        }
-
-        public String getItemName()
-        {
-            return itemName;
-        }
-
-        public void setItemName(String itemName)
-        {
-            this.itemName = itemName;
-        }
-
-        public double getItemPrice()
-        {
-            return itemPrice;
-        }
-
-        public void setItemPrice(double itemPrice)
-        {
-            this.itemPrice = itemPrice;
-        }
-
-        public int getItemQuantity()
-        {
-            return itemQuantity;
-        }
-
-        public void setItemQuantity(int itemQuantity)
-        {
-            this.itemQuantity = itemQuantity;
-        }
-
-        public Date getCheckOutDate()
-        {
-            return checkOutDate;
-        }
-
-        public void setCheckOutDate(Date checkOutDate)
-        {
-            this.checkOutDate = checkOutDate;
-        }
-
-        public void switchQuantities(boolean isSold)
-        {
-            if (isSold)
-            {
-
-            }
-        }
+        MedicineHandler.getCheckOutList().add(soldItemClone());
+        this.previousQuantity = 0;
+        this.quantityToSell.set(0);
     }
 
-   public MedicineItem addToCheckOut(int quantityToSell)
+   MedicineItem addToCheckOut(int quantityToSell)
     {
         this.quantityToSell.set(quantityToSell);
         previousQuantity = this.medicineQuantity.get();
@@ -298,26 +220,17 @@ public class MedicineItem
         return checkOutClone();
     }
 
-    void confirmSell(boolean confirm)
-    {
-        if (confirm)
-        {
-            this.previousQuantity = 0;
-            this.quantityToSell.set(0);
-        } else
-        {
-            this.medicineQuantity.set(previousQuantity);
-            this.previousQuantity = 0;
-            this.quantityToSell.set(0);
-        }
-    }
-
-    public MedicineItem checkOutClone()
+    private MedicineItem checkOutClone()
     {
         return new MedicineItem(medicineName.get(), medicineQuantity.get(), medicinePrice.get(), medicineDescription.get(), quantityToSell.get());
     }
 
-    public boolean checkOutEquals(MedicineItem object)
+    private MedicineItem soldItemClone()
+    {
+        return new MedicineItem(this.medicineName.get(),this.quantityToSell.get(),this.medicinePrice.get());
+    }
+
+    boolean checkOutEquals(MedicineItem object)
     {
         if (!this.medicineName.get().equals(object.medicineName.get()))
             return false;
